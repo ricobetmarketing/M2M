@@ -161,7 +161,8 @@ h1 {
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 16px;
+  align-items: stretch;
 }
 
 .hero-stat {
@@ -274,10 +275,14 @@ h1 {
 }
 
 .metric {
+  min-height: 158px;
   border: 1px solid var(--border-soft);
   background: rgba(0,0,0,0.22);
   border-radius: var(--radius-md);
-  padding: 19px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
 
@@ -312,8 +317,10 @@ h1 {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 16px;
+  gap: 20px;
   align-items: center;
+  background: linear-gradient(135deg, rgba(255,216,107,0.14), rgba(255,255,255,0.035));
+  border-color: rgba(255,216,107,0.22);
 }
 
 .up { color: var(--green); }
@@ -447,7 +454,7 @@ h1 {
           <div class="kicker">April vs May 2026 · Market Performance</div>
           <h1><span class="highlight">BR & MX</span><br />Month-to-Month Comparison</h1>
           <p>
-            Executive view of existing user growth, deposit performance, weekly unique users, spending quality, average unique deposit count, turnover, and Total (1) performance across both markets.
+            Executive view of existing user growth, deposit performance, spending quality, turnover, and Total (1) performance across both markets.
           </p>
           <div class="hero-chips">
             <div class="chip">BR: Higher Total (1) growth</div>
@@ -505,21 +512,9 @@ h1 {
       </div>
 
       <div class="metric">
-        <div class="metric-title">Weekly Unique User</div>
-        <div class="metric-value down">-10.4%</div>
-        <div class="metric-change">363 → 325 users</div>
-      </div>
-
-      <div class="metric">
         <div class="metric-title">User Spending</div>
         <div class="metric-value down">-34.0%</div>
         <div class="metric-change">2,054 → 1,355</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">Avg Unique Deposit Count</div>
-        <div class="metric-value down">-12.0%</div>
-        <div class="metric-change">225 → 198</div>
       </div>
 
       <div class="metric">
@@ -568,21 +563,9 @@ h1 {
       </div>
 
       <div class="metric">
-        <div class="metric-title">Weekly Unique User</div>
-        <div class="metric-value down">-1.3%</div>
-        <div class="metric-change">299 → 295 users</div>
-      </div>
-
-      <div class="metric">
         <div class="metric-title">User Spending</div>
         <div class="metric-value down">-15.6%</div>
         <div class="metric-change">890 → 751</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">Avg Unique Deposit Count</div>
-        <div class="metric-value up">+1.9%</div>
-        <div class="metric-change">104 → 106</div>
       </div>
 
       <div class="metric">
