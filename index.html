@@ -275,7 +275,7 @@ h1 {
 }
 
 .metric {
-  min-height: 158px;
+  min-height: 185px;
   border: 1px solid var(--border-soft);
   background: rgba(0,0,0,0.22);
   border-radius: var(--radius-md);
@@ -293,14 +293,17 @@ h1 {
 }
 
 .metric-title {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 850;
-  margin-bottom: 12px;
+  color: #f5fffa;
+  font-size: 20px;
+  line-height: 1.15;
+  font-weight: 950;
+  letter-spacing: -0.035em;
+  margin-bottom: 18px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.06);
 }
 
 .metric-value {
-  font-size: clamp(28px, 3.2vw, 40px);
+  font-size: clamp(40px, 4vw, 58px);
   line-height: 1;
   font-weight: 950;
   letter-spacing: -0.055em;
@@ -308,12 +311,14 @@ h1 {
 }
 
 .metric-change {
-  color: var(--soft);
-  font-size: 14px;
-  font-weight: 760;
+  color: #dce5e1;
+  font-size: 16px;
+  font-weight: 780;
+  letter-spacing: -0.01em;
 }
 
 .metric.full {
+  min-height: 165px;
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr auto;
