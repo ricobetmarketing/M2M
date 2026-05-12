@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BR & MX M2M Comparison</title>
-  <style>
-    :root {
-      --bg: #050606;
-      --bg-2: #090b0a;
-      --surface: rgba(255, 255, 255, 0.055);
-      --surface-strong: rgba(255, 255, 255, 0.085);
-      --border: rgba(255, 255, 255, 0.105);
-      --border-soft: rgba(255, 255, 255, 0.065);
-      --text: #f7fff9;
-      --muted: #9fa9a5;
-      --soft: #d7dfdb;
-      --green: #8b5cf6;
-      --green-deep: #6d28d9;
-      --green-soft: rgba(139, 92, 246, 0.14);
-      --red: #8b5cf6;
-      --red-deep: #7c3aed;
-      --red-soft: rgba(139, 92, 246, 0.14);
-      --gold: #ffd86b;
-      --gold-soft: rgba(255, 216, 107, 0.12);
-      --blue: #6aa6ff;
-      --radius-lg: 32px;
-      --radius-md: 22px;
-      --shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
-    }
-
-```
 * {
   margin: 0;
   padding: 0;
@@ -187,13 +154,8 @@ h1 {
   font-weight: 750;
 }
 
-.green {
-  color: #22c55e;
-  text-shadow: 0 0 18px rgba(34,197,94,0.35);
-}.35);
-}
-
-.red,
+.green { color: var(--green); text-shadow: 0 0 18px rgba(0,255,178,0.32); }
+.red { color: var(--red); text-shadow: 0 0 18px rgba(255,64,64,0.32); }
 .gold { color: var(--gold); text-shadow: 0 0 18px rgba(255,216,107,0.24); }
 
 .market-grid {
@@ -273,16 +235,14 @@ h1 {
 
 .metric-grid {
   position: relative;
-  z-index.metric-grid {
-  position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  align-items: stretch;
-} 1px s.metric {
-  width: 100%;
-  min-height: 170px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.metric {
+  min-height: 185px;
   border: 1px solid var(--border-soft);
   background: rgba(0,0,0,0.22);
   border-radius: var(--radius-md);
@@ -291,28 +251,35 @@ h1 {
   flex-direction: column;
   justify-content: center;
   transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-});
+}
+
+.metric:hover {
+  transform: translateY(-3px);
   border-color: rgba(255,255,255,0.18);
   background: rgba(255,255,255,0.055);
 }
 
 .metric-title {
   color: #f5fffa;
-  font-size:.metric-title {
-  color: #f5fffa;
-  font-size: 18px;
-  line-height: 1.2;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  margin-bottom: 16px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.06);
-}, 58px.metric-value {
-  font-size: clamp(36px, 3.4vw, 52px);
+  font-size: 20px;
+  line-height: 1.15;
+  font-weight: 950;
+  letter-spacing: -0.035em;
+  margin-bottom: 18px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.06);
+}
+
+.metric-value {
+  font-size: clamp(40px, 4vw, 58px);
   line-height: 1;
   font-weight: 950;
   letter-spacing: -0.055em;
-  margin-bottom: 10px;
-}t-size: 16px;
+  margin-bottom: 9px;
+}
+
+.metric-change {
+  color: #dce5e1;
+  font-size: 16px;
   font-weight: 780;
   letter-spacing: -0.01em;
 }
@@ -330,10 +297,9 @@ h1 {
 
 .up { color: var(--green); }
 .down { color: #ff6b6b; }
-.neutral { color: var(--.down {
-  color: #ff5a5a;
-  text-shadow: 0 0 18px rgba(255,90,90,0.30);
-}rd {
+.neutral { color: var(--gold); }
+
+.summary-card {
   position: relative;
   z-index: 1;
   margin-top: 18px;
@@ -448,207 +414,3 @@ h1 {
   .rank-row { grid-template-columns: 42px 1fr; }
   .rank-value { grid-column: 2; }
 }
-```
-
-  </style>
-</head>
-<body>
-  <main class="page">
-    <section class="hero">
-      <div class="hero-content">
-        <div>
-          <div class="kicker">April vs May 2026 · Market Performance</div>
-          <h1><span class="highlight">BR & MX</span><br />Month-to-Month Comparison</h1>
-          <p>
-            Executive view of existing user growth, deposit performance, spending quality, turnover, and Total (1) performance across both markets.
-          </p>
-          <div class="hero-chips">
-            <div class="chip">BR: Higher Total (1) growth</div>
-            <div class="chip">MX: Stronger existing-user growth</div>
-            <div class="chip">Both markets: Spending quality softened</div>
-          </div>
-        </div>
-
-```
-    <aside class="hero-panel">
-      <div class="panel-label">High-Level Signal</div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="num green">+14.8%</div>
-          <div class="label">BR Existing User Growth</div>
-        </div>
-        <div class="hero-stat">
-          <div class="num green">+22.3%</div>
-          <div class="label">MX Existing User Growth</div>
-        </div>
-        <div class="hero-stat">
-          <div class="num gold">+132.5%</div>
-          <div class="label">BR Total (1) Growth</div>
-        </div>
-        <div class="hero-stat">
-          <div class="num gold">+49.9%</div>
-          <div class="label">MX Total (1) Growth</div>
-        </div>
-      </div>
-    </aside>
-  </div>
-</section>
-
-<section class="market-grid">
-  <article class="market-card" style="--accent: var(--green); --glow: rgba(0,255,178,0.16); --badge-bg: var(--green-soft); --badge-border: rgba(0,255,178,0.22);">
-    <div class="market-head">
-      <div>
-        <div class="market-title">Brazil</div>
-        <div class="market-sub">April → May comparison</div>
-      </div>
-      <div class="market-badge">BR Market</div>
-    </div>
-
-    <div class="metric-grid">
-      <div class="metric">
-        <div class="metric-title">Existing User Growth</div>
-        <div class="metric-value green">+14.8%</div>
-        <div class="metric-change">155 → 178 users</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">Total Deposit</div>
-        <div class="metric-value down">-29.7%</div>
-        <div class="metric-change">365K → 256K</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">User Spending</div>
-        <div class="metric-value down">-34.0%</div>
-        <div class="metric-change">2,054 → 1,355</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">Total Turnover</div>
-        <div class="metric-value down">-34.9%</div>
-        <div class="metric-change">2.35M → 1.53M</div>
-      </div>
-
-      <div class="metric full">
-        <div>
-          <div class="metric-title">Total (1)</div>
-          <div class="metric-change">43K → 101K</div>
-        </div>
-        <div class="metric-value green">+132.5%</div>
-      </div>
-    </div>
-
-    <div class="summary-card">
-      <h3>Brazil Summary</h3>
-      <p>Brazil gained existing users, showing stronger return-user activity in May.</p>
-      <p>However, deposit value, weekly users, spending, and turnover declined sharply, suggesting weaker player quality.</p>
-      <p>Total (1) improved significantly, meaning efficiency or margin strengthened despite softer spending behavior.</p>
-    </div>
-  </article>
-
-  <article class="market-card" style="--accent: var(--red); --glow: rgba(255,64,64,0.16); --badge-bg: var(--red-soft); --badge-border: rgba(255,64,64,0.22);">
-    <div class="market-head">
-      <div>
-        <div class="market-title">Mexico</div>
-        <div class="market-sub">April → May comparison</div>
-      </div>
-      <div class="market-badge">MX Market</div>
-    </div>
-
-    <div class="metric-grid">
-      <div class="metric">
-        <div class="metric-title">Existing User Growth</div>
-        <div class="metric-value green">+22.3%</div>
-        <div class="metric-change">166 → 203 users</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">Total Deposit</div>
-        <div class="metric-value down">-3.0%</div>
-        <div class="metric-change">166K → 161K</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">User Spending</div>
-        <div class="metric-value down">-15.6%</div>
-        <div class="metric-change">890 → 751</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-title">Total Turnover</div>
-        <div class="metric-value down">-8.5%</div>
-        <div class="metric-change">1.33M → 1.22M</div>
-      </div>
-
-      <div class="metric full">
-        <div>
-          <div class="metric-title">Total (1)</div>
-          <div class="metric-change">51K → 77K</div>
-        </div>
-        <div class="metric-value green">+49.9%</div>
-      </div>
-    </div>
-
-    <div class="summary-card">
-      <h3>Mexico Summary</h3>
-      <p>Mexico delivered stronger existing-user growth than Brazil and kept weekly users almost stable.</p>
-      <p>Total Deposit dropped only slightly, while Average Unique Deposit Count improved, showing more stable deposit behavior.</p>
-      <p>Total (1) also increased strongly, indicating improved efficiency even with softer spending and turnover.</p>
-    </div>
-  </article>
-</section>
-
-<section class="takeaway">
-  <div class="takeaway-card">
-    <h2>Key Takeaway</h2>
-    <p>Both markets improved existing-user growth, but player spending quality weakened month-to-month.</p>
-    <p>Mexico showed better stability, while Brazil had a sharper drop in spending and turnover but stronger Total (1) upside.</p>
-    <p>The next focus should be improving player value while maintaining existing-user growth momentum.</p>
-  </div>
-
-  <div class="takeaway-card">
-    <h2>Performance Signals</h2>
-    <div class="ranking">
-      <div class="rank-row">
-        <div class="rank-icon">🚀</div>
-        <div>
-          <div class="rank-title">Best Existing User Growth</div>
-          <div class="rank-sub">Mexico performed stronger in user growth.</div>
-        </div>
-        <div class="rank-value green">MX +22.3%</div>
-      </div>
-
-      <div class="rank-row">
-        <div class="rank-icon">💰</div>
-        <div>
-          <div class="rank-title">More Stable Deposit</div>
-          <div class="rank-sub">Mexico had a smaller Total Deposit decline.</div>
-        </div>
-        <div class="rank-value down">MX -3.0%</div>
-      </div>
-
-      <div class="rank-row">
-        <div class="rank-icon">📈</div>
-        <div>
-          <div class="rank-title">Best Total (1) Growth</div>
-          <div class="rank-sub">Brazil had the strongest Total (1) uplift.</div>
-        </div>
-        <div class="rank-value green">BR +132.5%</div>
-      </div>
-
-      <div class="rank-row">
-        <div class="rank-icon">⚠️</div>
-        <div>
-          <div class="rank-title">Largest Spending Drop</div>
-          <div class="rank-sub">Brazil had the sharper spending quality decline.</div>
-        </div>
-        <div class="rank-value down">BR -34.0%</div>
-      </div>
-    </div>
-  </div>
-</section>
-```
-
-  </main>
-</body>
-</html>
