@@ -16,12 +16,12 @@
       --text: #f7fff9;
       --muted: #9fa9a5;
       --soft: #d7dfdb;
-      --green: #00ffb2;
-      --green-deep: #00b87f;
-      --green-soft: rgba(0, 255, 178, 0.12);
-      --red: #ff4040;
-      --red-deep: #c92132;
-      --red-soft: rgba(255, 64, 64, 0.12);
+      --green: #8b5cf6;
+      --green-deep: #6d28d9;
+      --green-soft: rgba(139, 92, 246, 0.14);
+      --red: #8b5cf6;
+      --red-deep: #7c3aed;
+      --red-soft: rgba(139, 92, 246, 0.14);
       --gold: #ffd86b;
       --gold-soft: rgba(255, 216, 107, 0.12);
       --blue: #6aa6ff;
@@ -42,8 +42,8 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 8% 4%, rgba(0, 255, 178, 0.16), transparent 30%),
-    radial-gradient(circle at 92% 6%, rgba(255, 64, 64, 0.15), transparent 32%),
+    radial-gradient(circle at 8% 4%, rgba(139, 92, 246, 0.22), transparent 30%),
+    radial-gradient(circle at 92% 6%, rgba(168, 85, 247, 0.20), transparent 32%),
     radial-gradient(circle at 50% 100%, rgba(255, 216, 107, 0.08), transparent 42%),
     linear-gradient(180deg, #050606 0%, #080908 48%, #030404 100%);
   line-height: 1.55;
@@ -61,7 +61,7 @@ body {
   border: 1px solid var(--border);
   background:
     linear-gradient(135deg, rgba(255,255,255,0.095), rgba(255,255,255,0.035)),
-    linear-gradient(90deg, rgba(0,255,178,0.065), rgba(255,64,64,0.055));
+    linear-gradient(90deg, rgba(139,92,246,0.12), rgba(168,85,247,0.10));
   border-radius: 38px;
   box-shadow: var(--shadow);
   padding: clamp(34px, 5vw, 64px);
@@ -73,7 +73,7 @@ body {
   position: absolute;
   inset: -1px;
   background:
-    linear-gradient(90deg, rgba(0,255,178,0.22), transparent 36%, transparent 64%, rgba(255,64,64,0.22));
+    linear-gradient(90deg, rgba(139,92,246,0.30), transparent 36%, transparent 64%, rgba(168,85,247,0.30));
   opacity: 0.48;
   pointer-events: none;
 }
@@ -477,7 +477,7 @@ h1 {
           <div class="label">BR Existing User Growth</div>
         </div>
         <div class="hero-stat">
-          <div class="num red">+22.3%</div>
+          <div class="num green">+22.3%</div>
           <div class="label">MX Existing User Growth</div>
         </div>
         <div class="hero-stat">
@@ -614,7 +614,7 @@ h1 {
           <div class="rank-title">Best Existing User Growth</div>
           <div class="rank-sub">Mexico performed stronger in user growth.</div>
         </div>
-        <div class="rank-value red">MX +22.3%</div>
+        <div class="rank-value green">MX +22.3%</div>
       </div>
 
       <div class="rank-row">
@@ -623,7 +623,7 @@ h1 {
           <div class="rank-title">More Stable Deposit</div>
           <div class="rank-sub">Mexico had a smaller Total Deposit decline.</div>
         </div>
-        <div class="rank-value red">MX -3.0%</div>
+        <div class="rank-value green">MX -3.0%</div>
       </div>
 
       <div class="rank-row">
