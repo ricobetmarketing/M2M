@@ -4,711 +4,235 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Monthly Report Review | BR & MX</title>
-
   <style>
-    :root{
-      --bg:#07080d;
-      --panel:rgba(17,21,34,.86);
-      --card:rgba(255,255,255,.075);
-      --card-soft:rgba(255,255,255,.04);
-      --line:rgba(255,255,255,.12);
-      --text:#f7f3e8;
-      --muted:#a9adba;
-      --gold:#d6b46b;
-      --gold-light:#f1d58b;
-      --green:#54d18a;
-      --red:#ff6b6b;
-      --shadow:0 28px 70px rgba(0,0,0,.38);
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    body{
-      margin:0;
-      font-family:Inter,Arial,sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(214,180,107,.24), transparent 30%),
-        radial-gradient(circle at 88% 0%, rgba(94,117,180,.25), transparent 34%),
-        var(--bg);
-      color:var(--text);
-    }
-
-    .page{
-      width:min(1200px, calc(100% - 40px));
-      margin:auto;
-      padding:48px 0 72px;
-    }
-
-    .hero{
-      border:1px solid var(--line);
-      border-radius:36px;
-      padding:46px;
-      background:linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.025));
-      box-shadow:var(--shadow);
-    }
-
-    .tag{
-      display:inline-block;
-      padding:9px 15px;
-      border:1px solid rgba(214,180,107,.42);
-      border-radius:999px;
-      color:var(--gold-light);
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-
-    h1{
-      margin:24px 0 14px;
-      font-size:clamp(42px,6vw,76px);
-      line-height:.96;
-      letter-spacing:-.06em;
-      max-width:920px;
-    }
-
-    .lead{
-      max-width:860px;
-      color:#d9d9df;
-      font-size:18px;
-      line-height:1.65;
-      margin:0;
-    }
-
-    .periods,
-    .tabs{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:28px;
-    }
-
-    .pill,
-    .tab-button{
-      padding:12px 16px;
-      border-radius:16px;
-      background:rgba(255,255,255,.07);
-      border:1px solid var(--line);
-      color:#e9e4d5;
-      font-size:14px;
-    }
-
-    .tab-button{
-      cursor:pointer;
-      font-weight:800;
-      transition:.25s;
-    }
-
-    .tab-button.active{
-      background:linear-gradient(135deg, rgba(214,180,107,.28), rgba(255,255,255,.06));
-      border-color:rgba(214,180,107,.5);
-      color:var(--gold-light);
-    }
-
-    .tab-content{
-      display:none;
-    }
-
-    .tab-content.active{
-      display:block;
-    }
-
-    .market-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:24px;
-      margin-top:28px;
-    }
-
-    .market-panel,
-    .panel{
-      padding:30px;
-      border-radius:32px;
-      border:1px solid var(--line);
-      background:var(--panel);
-      box-shadow:var(--shadow);
-    }
-
-    .market-head{
-      display:flex;
-      justify-content:space-between;
-      gap:18px;
-      margin-bottom:22px;
-    }
-
-    .market-title{
-      margin:0;
-      font-size:28px;
-      letter-spacing:-.04em;
-    }
-
-    .market-subtitle{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .status{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(214,180,107,.34);
-      color:var(--gold-light);
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      white-space:nowrap;
-    }
-
-    .kpi-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:14px;
-    }
-
-    .kpi{
-      min-height:156px;
-      padding:20px;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg,var(--card),var(--card-soft));
-      box-shadow:0 16px 34px rgba(0,0,0,.2);
-    }
-
-    .kpi .label{
-      color:var(--muted);
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-    }
-
-    .kpi .value{
-      display:block;
-      margin-top:15px;
-      font-size:28px;
-      font-weight:800;
-      letter-spacing:-.04em;
-    }
-
-    .kpi .previous{
-      display:block;
-      margin-top:6px;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .change{
-      display:inline-block;
-      margin-top:14px;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      background:rgba(255,255,255,.075);
-    }
-
-    .positive{
-      color:var(--green);
-    }
-
-    .negative{
-      color:var(--red);
-    }
-
-    .content{
-      display:grid;
-      grid-template-columns:.95fr 1.05fr;
-      gap:24px;
-      margin-top:26px;
-    }
-
-    h2{
-      margin:0 0 20px;
-      font-size:25px;
-      letter-spacing:-.03em;
-    }
-
-    .insight{
-      display:grid;
-      grid-template-columns:18px 1fr;
-      gap:14px;
-      padding:18px 0;
-      border-top:1px solid var(--line);
-    }
-
-    .insight:first-of-type{
-      border-top:0;
-      padding-top:0;
-    }
-
-    .dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      margin-top:8px;
-      background:linear-gradient(135deg,var(--gold-light),var(--gold));
-      box-shadow:0 0 24px rgba(214,180,107,.7);
-    }
-
-    .insight h3{
-      margin:0 0 6px;
-      font-size:17px;
-    }
-
-    .insight p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.55;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-    }
-
-    th,
-    td{
-      padding:15px 12px;
-      border-bottom:1px solid var(--line);
-      text-align:right;
-      font-size:14px;
-    }
-
-    th:first-child,
-    td:first-child{
-      text-align:left;
-    }
-
-    th{
-      color:var(--gold-light);
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.11em;
-    }
-
-    .summary-box{
-      margin-top:26px;
-      padding:25px;
-      border-radius:28px;
-      border:1px solid rgba(214,180,107,.32);
-      background:linear-gradient(135deg, rgba(214,180,107,.18), rgba(255,255,255,.045));
-    }
-
-    .summary-box p{
-      margin:0;
-      color:#ded7c5;
-      line-height:1.65;
-      font-size:16px;
-    }
-
-    .footer-note{
-      margin-top:24px;
-      color:var(--muted);
-      text-align:center;
-      font-size:13px;
-    }
-
-    @media(max-width:980px){
-      .market-grid,
-      .content{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:640px){
-      .page{
-        width:min(100% - 28px,1200px);
-        padding-top:28px;
-      }
-
-      .hero,
-      .panel,
-      .market-panel{
-        padding:24px;
-      }
-
-      .kpi-grid{
-        grid-template-columns:1fr;
-      }
-
-      .market-head{
-        flex-direction:column;
-      }
-
-      table{
-        display:block;
-        overflow-x:auto;
-        white-space:nowrap;
-      }
-    }
+    :root{--bg:#07080d;--panel:rgba(17,21,34,.86);--card:rgba(255,255,255,.075);--card-soft:rgba(255,255,255,.04);--line:rgba(255,255,255,.12);--text:#f7f3e8;--muted:#a9adba;--gold:#d6b46b;--gold-light:#f1d58b;--green:#54d18a;--red:#ff6b6b;--shadow:0 28px 70px rgba(0,0,0,.38)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 12% 8%,rgba(214,180,107,.24),transparent 30%),radial-gradient(circle at 88% 0%,rgba(94,117,180,.25),transparent 34%),var(--bg);color:var(--text)}
+    .page{width:min(1200px,calc(100% - 40px));margin:auto;padding:48px 0 72px}
+    .hero{border:1px solid var(--line);border-radius:36px;padding:46px;background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));box-shadow:var(--shadow)}
+    .tag{display:inline-block;padding:9px 15px;border:1px solid rgba(214,180,107,.42);border-radius:999px;color:var(--gold-light);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:24px 0 14px;font-size:clamp(42px,6vw,76px);line-height:.96;letter-spacing:-.06em;max-width:920px}
+    .lead{max-width:880px;color:#d9d9df;font-size:18px;line-height:1.65;margin:0}
+    .periods,.tabs{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .pill,.tab-button{padding:12px 16px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#e9e4d5;font-size:14px}
+    .tab-button{cursor:pointer;font-weight:800}
+    .tab-button.active{background:linear-gradient(135deg,rgba(214,180,107,.28),rgba(255,255,255,.06));border-color:rgba(214,180,107,.5);color:var(--gold-light)}
+    .tab-content{display:none}.tab-content.active{display:block}
+    .market-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+    .market-panel,.panel{padding:30px;border-radius:32px;border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow)}
+    .market-head{display:flex;justify-content:space-between;gap:18px;margin-bottom:22px}
+    .market-title{margin:0;font-size:28px;letter-spacing:-.04em}
+    .market-subtitle{margin-top:6px;color:var(--muted);font-size:14px}
+    .status{padding:8px 12px;border-radius:999px;border:1px solid rgba(214,180,107,.34);color:var(--gold-light);font-size:12px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+    .kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .kpi{min-height:156px;padding:20px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--card-soft));box-shadow:0 16px 34px rgba(0,0,0,.2)}
+    .kpi .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+    .kpi .value{display:block;margin-top:15px;font-size:28px;font-weight:800;letter-spacing:-.04em}
+    .kpi .previous{display:block;margin-top:6px;color:var(--muted);font-size:13px}
+    .change{display:inline-block;margin-top:14px;padding:7px 10px;border-radius:999px;font-size:13px;font-weight:700;background:rgba(255,255,255,.075)}
+    .positive{color:var(--green)}.negative{color:var(--red)}
+    .content{display:grid;grid-template-columns:.95fr 1.05fr;gap:24px;margin-top:26px}
+    h2{margin:0 0 20px;font-size:25px;letter-spacing:-.03em}
+    .insight{display:grid;grid-template-columns:18px 1fr;gap:14px;padding:18px 0;border-top:1px solid var(--line)}
+    .insight:first-of-type{border-top:0;padding-top:0}
+    .dot{width:10px;height:10px;border-radius:50%;margin-top:8px;background:linear-gradient(135deg,var(--gold-light),var(--gold));box-shadow:0 0 24px rgba(214,180,107,.7)}
+    .insight h3{margin:0 0 6px;font-size:17px}.insight p{margin:0;color:var(--muted);line-height:1.55}
+    table{width:100%;border-collapse:collapse}th,td{padding:15px 12px;border-bottom:1px solid var(--line);text-align:right;font-size:14px}th:first-child,td:first-child{text-align:left}th{color:var(--gold-light);font-size:12px;text-transform:uppercase;letter-spacing:.11em}
+    .summary-box{margin-top:26px;padding:25px;border-radius:28px;border:1px solid rgba(214,180,107,.32);background:linear-gradient(135deg,rgba(214,180,107,.18),rgba(255,255,255,.045))}
+    .summary-box p{margin:0;color:#ded7c5;line-height:1.65;font-size:16px}
+    .footer-note{margin-top:24px;color:var(--muted);text-align:center;font-size:13px}
+    @media(max-width:980px){.market-grid,.content{grid-template-columns:1fr}}
+    @media(max-width:640px){.page{width:min(100% - 28px,1200px);padding-top:28px}.hero,.panel,.market-panel{padding:24px}.kpi-grid{grid-template-columns:1fr}.market-head{flex-direction:column}table{display:block;overflow-x:auto;white-space:nowrap}}
   </style>
 </head>
 
 <body>
-
-  <main class="page">
-
-    <section class="hero">
-
-      <div class="tag">Monthly Report Review</div>
-
-      <h1>BR & Mexico Performance Summary</h1>
-
-      <p class="lead">
-        Premium executive landing page covering core market KPIs,
-        Free Spins Drop promo comparison,
-        and Reload Boost promo before/after performance for BR and MX.
-      </p>
-
-      <div class="periods">
-        <div class="pill">Previous Period: Apr 01–18</div>
-        <div class="pill">Current Period: May 01–18</div>
-        <div class="pill">Markets: BR & MX</div>
-      </div>
-
-      <div class="tabs">
-        <button class="tab-button active" onclick="showTab(event,'market')">Market KPI Review</button>
-        <button class="tab-button" onclick="showTab(event,'fsd')">Free Spins Drop Promo</button>
-        <button class="tab-button" onclick="showTab(event,'rb')">Reload Boost Promo</button>
-      </div>
-
-    </section>
-
-    <!-- MARKET KPI TAB -->
-
-    <section id="market" class="tab-content active">
-
-      <section class="market-grid">
-
-        <div class="market-panel">
-
-          <div class="market-head">
-            <div>
-              <h2 class="market-title">Brazil</h2>
-              <div class="market-subtitle">
-                May improved profitability despite softer volume.
-              </div>
-            </div>
-
-            <div class="status">BR Market</div>
-          </div>
-
-          <div class="kpi-grid">
-
-            <div class="kpi">
-              <div class="label">Turnover</div>
-              <span class="value">$2,853,798</span>
-              <span class="previous">Previous: $3,351,264</span>
-              <span class="change negative">-14.8%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total Deposit</div>
-              <span class="value">$469,011</span>
-              <span class="previous">Previous: $514,866</span>
-              <span class="change negative">-8.9%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total (1)</div>
-              <span class="value">$140,850</span>
-              <span class="previous">Previous: $69,149</span>
-              <span class="change positive">+103.7%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total Promotion</div>
-              <span class="value">$21,645</span>
-              <span class="previous">Previous: $27,528</span>
-              <span class="change positive">-21.4%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Margin</div>
-              <span class="value">30.03%</span>
-              <span class="previous">Previous: 13.43%</span>
-              <span class="change positive">+16.60 pts</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Unique Existing</div>
-              <span class="value">205</span>
-              <span class="previous">Previous: 173</span>
-              <span class="change positive">+18.5%</span>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="market-panel">
-
-          <div class="market-head">
-            <div>
-              <h2 class="market-title">Mexico</h2>
-              <div class="market-subtitle">
-                May delivered stronger growth and better margin efficiency.
-              </div>
-            </div>
-
-            <div class="status">MX Market</div>
-          </div>
-
-          <div class="kpi-grid">
-
-            <div class="kpi">
-              <div class="label">Turnover</div>
-              <span class="value">$2,154,152</span>
-              <span class="previous">Previous: $2,148,601</span>
-              <span class="change positive">+0.3%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total Deposit</div>
-              <span class="value">$255,455</span>
-              <span class="previous">Previous: $244,479</span>
-              <span class="change positive">+4.5%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total (1)</div>
-              <span class="value">$99,197</span>
-              <span class="previous">Previous: $47,193</span>
-              <span class="change positive">+110.2%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total Promotion</div>
-              <span class="value">$19,003</span>
-              <span class="previous">Previous: $20,176</span>
-              <span class="change positive">-5.8%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Margin</div>
-              <span class="value">38.83%</span>
-              <span class="previous">Previous: 19.30%</span>
-              <span class="change positive">+19.53 pts</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Unique Existing</div>
-              <span class="value">229</span>
-              <span class="previous">Previous: 198</span>
-              <span class="change positive">+15.7%</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </section>
-
-    <!-- FSD TAB -->
-
-    <section id="fsd" class="tab-content">
-
-      <section class="market-grid">
-
-        <div class="market-panel">
-
-          <div class="market-head">
-            <div>
-              <h2 class="market-title">Brazil Free Spins Drop</h2>
-              <div class="market-subtitle">
-                Before: Apr 06–17 · After: May 06–17
-              </div>
-            </div>
-
-            <div class="status">BR FSD</div>
-          </div>
-
-          <div class="kpi-grid">
-
-            <div class="kpi">
-              <div class="label">Total Claim</div>
-              <span class="value">224</span>
-              <span class="previous">Before: 128</span>
-              <span class="change positive">+75.0%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Claim Rate</div>
-              <span class="value">79.4%</span>
-              <span class="previous">Before: 13.7%</span>
-              <span class="change positive">+65.7 pts</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Avg Daily Claim</div>
-              <span class="value">18.7</span>
-              <span class="previous">Before: 10.7</span>
-              <span class="change positive">+75.0%</span>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="market-panel">
-
-          <div class="market-head">
-            <div>
-              <h2 class="market-title">Mexico Free Spins Drop</h2>
-              <div class="market-subtitle">
-                Before: Apr 06–17 · After: May 06–17
-              </div>
-            </div>
-
-            <div class="status">MX FSD</div>
-          </div>
-
-          <div class="kpi-grid">
-
-            <div class="kpi">
-              <div class="label">Total Claim</div>
-              <span class="value">586</span>
-              <span class="previous">Before: 487</span>
-              <span class="change positive">+20.3%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Claim Rate</div>
-              <span class="value">88.8%</span>
-              <span class="previous">Before: 71.3%</span>
-              <span class="change positive">+17.5 pts</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Avg Daily Claim</div>
-              <span class="value">48.8</span>
-              <span class="previous">Before: 40.6</span>
-              <span class="change positive">+20.3%</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </section>
-
-    <!-- RELOAD BOOST TAB -->
-
-    <section id="rb" class="tab-content">
-
-      <section class="market-grid">
-
-        <div class="market-panel">
-
-          <div class="market-head">
-            <div>
-              <h2 class="market-title">Brazil Reload Boost</h2>
-              <div class="market-subtitle">
-                Before: Apr 06–17 · After: May 06–17
-              </div>
-            </div>
-
-            <div class="status">BR RB</div>
-          </div>
-
-          <div class="kpi-grid">
-
-            <div class="kpi">
-              <div class="label">Unique Claim</div>
-              <span class="value">39</span>
-              <span class="previous">Before: 31</span>
-              <span class="change positive">+25.8%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total Transaction</div>
-              <span class="value">95</span>
-              <span class="previous">Before: 82</span>
-              <span class="change positive">+15.9%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Avg Daily Claim</div>
-              <span class="value">3.3</span>
-              <span class="previous">Before: 2.6</span>
-              <span class="change positive">+26.9%</span>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="market-panel">
-
-          <div class="market-head">
-            <div>
-              <h2 class="market-title">Mexico Reload Boost</h2>
-              <div class="market-subtitle">
-                Before: Apr 01–17 · After: May 01–17
-              </div>
-            </div>
-
-            <div class="status">MX RB</div>
-          </div>
-
-          <div class="kpi-grid">
-
-            <div class="kpi">
-              <div class="label">Unique Claim</div>
-              <span class="value">66</span>
-              <span class="previous">Before: 31</span>
-              <span class="change positive">+112.9%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Total Transaction</div>
-              <span class="value">161</span>
-              <span class="previous">Before: 184</span>
-              <span class="change negative">-12.5%</span>
-            </div>
-
-            <div class="kpi">
-              <div class="label">Avg Daily Claim</div>
-              <span class="value">5.5</span>
-              <span class="previous">Before: 2.6</span>
-              <span class="change positive">+111.5%</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </section>
-
-    <div class="footer-note">
-      Monthly Report Review · BR & MX Markets · KPI + FSD + Reload Boost Comparison
+<main class="page">
+  <section class="hero">
+    <div class="tag">Monthly Report Review</div>
+    <h1>BR & Mexico Performance Summary</h1>
+    <p class="lead">Premium executive landing page updated with the latest market KPI, Free Spins Drop, and Reload Boost before/after data for BR and MX.</p>
+    <div class="periods">
+      <div class="pill">Market KPI: Apr 01–24 vs May 01–24</div>
+      <div class="pill">FSD: Apr 06–24 vs May 06–24</div>
+      <div class="pill">RB: BR Apr 06–24 vs May 06–24 · MX Apr 01–24 vs May 01–24</div>
     </div>
+    <div class="tabs">
+      <button class="tab-button active" onclick="showTab(event,'market')">Market KPI Review</button>
+      <button class="tab-button" onclick="showTab(event,'fsd')">Free Spins Drop Promo</button>
+      <button class="tab-button" onclick="showTab(event,'rb')">Reload Boost Promo</button>
+    </div>
+  </section>
 
-  </main>
+  <section id="market" class="tab-content active">
+    <section class="market-grid">
+      <div class="market-panel">
+        <div class="market-head">
+          <div><h2 class="market-title">Brazil</h2><div class="market-subtitle">May improved profitability and turnover, while deposit volume softened.</div></div>
+          <div class="status">BR Market</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="label">Turnover</div><span class="value">$5,743,173</span><span class="previous">Previous: $4,283,003</span><span class="change positive">+34.1%</span></div>
+          <div class="kpi"><div class="label">Total Deposit</div><span class="value">$573,919</span><span class="previous">Previous: $648,651</span><span class="change negative">-11.5%</span></div>
+          <div class="kpi"><div class="label">Total (1)</div><span class="value">$134,779</span><span class="previous">Previous: $80,702</span><span class="change positive">+67.0%</span></div>
+          <div class="kpi"><div class="label">Total Promotion</div><span class="value">$34,375</span><span class="previous">Previous: $35,082</span><span class="change positive">-2.0%</span></div>
+          <div class="kpi"><div class="label">Margin</div><span class="value">23.48%</span><span class="previous">Previous: 12.44%</span><span class="change positive">+11.04 pts</span></div>
+          <div class="kpi"><div class="label">Unique Existing</div><span class="value">221</span><span class="previous">Previous: 185</span><span class="change positive">+19.5%</span></div>
+        </div>
+      </div>
 
-  <script>
+      <div class="market-panel">
+        <div class="market-head">
+          <div><h2 class="market-title">Mexico</h2><div class="market-subtitle">May showed stronger growth across volume, net result, and margin.</div></div>
+          <div class="status">MX Market</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="label">Turnover</div><span class="value">$3,141,509</span><span class="previous">Previous: $2,741,901</span><span class="change positive">+14.6%</span></div>
+          <div class="kpi"><div class="label">Total Deposit</div><span class="value">$374,877</span><span class="previous">Previous: $324,414</span><span class="change positive">+15.6%</span></div>
+          <div class="kpi"><div class="label">Total (1)</div><span class="value">$96,760</span><span class="previous">Previous: $58,224</span><span class="change positive">+66.2%</span></div>
+          <div class="kpi"><div class="label">Total Promotion</div><span class="value">$25,639</span><span class="previous">Previous: $24,555</span><span class="change negative">+4.4%</span></div>
+          <div class="kpi"><div class="label">Margin</div><span class="value">25.81%</span><span class="previous">Previous: 17.95%</span><span class="change positive">+7.86 pts</span></div>
+          <div class="kpi"><div class="label">Unique Existing</div><span class="value">252</span><span class="previous">Previous: 213</span><span class="change positive">+18.3%</span></div>
+        </div>
+      </div>
+    </section>
 
-    function showTab(event, tabId){
+    <section class="content">
+      <div class="panel">
+        <h2>Market KPI Summary</h2>
+        <div class="insight"><div class="dot"></div><div><h3>Both markets improved profitability</h3><p>BR Total(1) increased by 67.0%, while MX Total(1) increased by 66.2%.</p></div></div>
+        <div class="insight"><div class="dot"></div><div><h3>Mexico had stronger volume health</h3><p>MX improved both Turnover and Total Deposit, while BR Turnover grew but Total Deposit declined.</p></div></div>
+        <div class="insight"><div class="dot"></div><div><h3>Margin expanded in both markets</h3><p>BR margin improved by 11.04 points and MX margin improved by 7.86 points.</p></div></div>
+      </div>
+      <div class="panel">
+        <h2>KPI Comparison Table</h2>
+        <table>
+          <thead><tr><th>Market</th><th>KPI</th><th>Before</th><th>After</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>BR</td><td>Turnover</td><td>$4,283,003</td><td>$5,743,173</td><td class="positive">+34.1%</td></tr>
+            <tr><td>BR</td><td>Total Deposit</td><td>$648,651</td><td>$573,919</td><td class="negative">-11.5%</td></tr>
+            <tr><td>BR</td><td>Total (1)</td><td>$80,702</td><td>$134,779</td><td class="positive">+67.0%</td></tr>
+            <tr><td>BR</td><td>Total Promotion</td><td>$35,082</td><td>$34,375</td><td class="positive">-2.0%</td></tr>
+            <tr><td>BR</td><td>Margin</td><td>12.44%</td><td>23.48%</td><td class="positive">+11.04 pts</td></tr>
+            <tr><td>BR</td><td>Unique Existing</td><td>185</td><td>221</td><td class="positive">+19.5%</td></tr>
+            <tr><td>MX</td><td>Turnover</td><td>$2,741,901</td><td>$3,141,509</td><td class="positive">+14.6%</td></tr>
+            <tr><td>MX</td><td>Total Deposit</td><td>$324,414</td><td>$374,877</td><td class="positive">+15.6%</td></tr>
+            <tr><td>MX</td><td>Total (1)</td><td>$58,224</td><td>$96,760</td><td class="positive">+66.2%</td></tr>
+            <tr><td>MX</td><td>Total Promotion</td><td>$24,555</td><td>$25,639</td><td class="negative">+4.4%</td></tr>
+            <tr><td>MX</td><td>Margin</td><td>17.95%</td><td>25.81%</td><td class="positive">+7.86 pts</td></tr>
+            <tr><td>MX</td><td>Unique Existing</td><td>213</td><td>252</td><td class="positive">+18.3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-      document.querySelectorAll('.tab-content').forEach(function(section){
-        section.classList.remove('active');
-      });
+    <section class="summary-box"><p><strong>Management Summary:</strong> May delivered stronger profitability in both BR and MX. BR had the stronger turnover growth and better promotion control, while MX showed healthier overall volume movement with growth in both turnover and deposit.</p></section>
+  </section>
 
-      document.querySelectorAll('.tab-button').forEach(function(button){
-        button.classList.remove('active');
-      });
+  <section id="fsd" class="tab-content">
+    <section class="market-grid">
+      <div class="market-panel">
+        <div class="market-head"><div><h2 class="market-title">Brazil Free Spins Drop</h2><div class="market-subtitle">Before: Apr 06–24 · After: May 06–24</div></div><div class="status">BR FSD</div></div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="label">Total Claim</div><span class="value">343</span><span class="previous">Before: 188</span><span class="change positive">+82.4%</span></div>
+          <div class="kpi"><div class="label">Claim Rate</div><span class="value">78.5%</span><span class="previous">Before: 13.6%</span><span class="change positive">+64.85 pts</span></div>
+          <div class="kpi"><div class="label">Avg Daily Claim</div><span class="value">19.1</span><span class="previous">Before: 10.4</span><span class="change positive">+82.4%</span></div>
+        </div>
+      </div>
 
-      document.getElementById(tabId).classList.add('active');
+      <div class="market-panel">
+        <div class="market-head"><div><h2 class="market-title">Mexico Free Spins Drop</h2><div class="market-subtitle">Before: Apr 06–24 · After: May 06–24</div></div><div class="status">MX FSD</div></div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="label">Total Claim</div><span class="value">854</span><span class="previous">Before: 668</span><span class="change positive">+27.8%</span></div>
+          <div class="kpi"><div class="label">Claim Rate</div><span class="value">87.7%</span><span class="previous">Before: 65.7%</span><span class="change positive">+21.93 pts</span></div>
+          <div class="kpi"><div class="label">Avg Daily Claim</div><span class="value">44.9</span><span class="previous">Before: 35.2</span><span class="change positive">+27.8%</span></div>
+        </div>
+      </div>
+    </section>
 
-      event.target.classList.add('active');
-    }
+    <section class="content">
+      <div class="panel">
+        <h2>FSD Promo Summary</h2>
+        <div class="insight"><div class="dot"></div><div><h3>BR claim efficiency improved sharply</h3><p>BR claim rate increased from 13.6% to 78.5%, with total claims up 82.4%.</p></div></div>
+        <div class="insight"><div class="dot"></div><div><h3>MX remained the larger claim market</h3><p>MX reached 854 total claims after the change and improved claim rate to 87.7%.</p></div></div>
+        <div class="insight"><div class="dot"></div><div><h3>Both markets improved daily engagement</h3><p>Average daily claim increased in both BR and MX after the promo update.</p></div></div>
+      </div>
+      <div class="panel">
+        <h2>Before vs After Comparison</h2>
+        <table>
+          <thead><tr><th>Market</th><th>Metric</th><th>Before</th><th>After</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>BR</td><td>Total Claim</td><td>188</td><td>343</td><td class="positive">+82.4%</td></tr>
+            <tr><td>BR</td><td>Claim Rate</td><td>13.6%</td><td>78.5%</td><td class="positive">+64.85 pts</td></tr>
+            <tr><td>BR</td><td>Avg Daily Claim</td><td>10.4</td><td>19.1</td><td class="positive">+82.4%</td></tr>
+            <tr><td>MX</td><td>Total Claim</td><td>668</td><td>854</td><td class="positive">+27.8%</td></tr>
+            <tr><td>MX</td><td>Claim Rate</td><td>65.7%</td><td>87.7%</td><td class="positive">+21.93 pts</td></tr>
+            <tr><td>MX</td><td>Avg Daily Claim</td><td>35.2</td><td>44.9</td><td class="positive">+27.8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-  </script>
+    <section class="summary-box"><p><strong>FSD Management Summary:</strong> Free Spins Drop performance improved in both markets. BR delivered the strongest efficiency uplift, while MX remained the stronger absolute market by total claim volume and claim rate.</p></section>
+  </section>
 
+  <section id="rb" class="tab-content">
+    <section class="market-grid">
+      <div class="market-panel">
+        <div class="market-head"><div><h2 class="market-title">Brazil Reload Boost</h2><div class="market-subtitle">Before: Apr 06–24 · After: May 06–24</div></div><div class="status">BR RB</div></div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="label">Unique Claim</div><span class="value">49</span><span class="previous">Before: 42</span><span class="change positive">+16.7%</span></div>
+          <div class="kpi"><div class="label">Total Transaction</div><span class="value">148</span><span class="previous">Before: 146</span><span class="change positive">+1.4%</span></div>
+          <div class="kpi"><div class="label">Avg Daily Claim</div><span class="value">2.6</span><span class="previous">Before: 2.2</span><span class="change positive">+16.7%</span></div>
+        </div>
+      </div>
+
+      <div class="market-panel">
+        <div class="market-head"><div><h2 class="market-title">Mexico Reload Boost</h2><div class="market-subtitle">Before: Apr 01–24 · After: May 01–24</div></div><div class="status">MX RB</div></div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="label">Unique Claim</div><span class="value">77</span><span class="previous">Before: 38</span><span class="change positive">+102.6%</span></div>
+          <div class="kpi"><div class="label">Total Transaction</div><span class="value">228</span><span class="previous">Before: 221</span><span class="change positive">+3.2%</span></div>
+          <div class="kpi"><div class="label">Avg Daily Claim</div><span class="value">3.2</span><span class="previous">Before: 1.6</span><span class="change positive">+102.6%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="panel">
+        <h2>Reload Boost Promo Summary</h2>
+        <div class="insight"><div class="dot"></div><div><h3>BR improved steadily</h3><p>BR increased Unique Claims by 16.7% and Total Transactions by 1.4%.</p></div></div>
+        <div class="insight"><div class="dot"></div><div><h3>MX achieved strongest reach expansion</h3><p>MX Unique Claims more than doubled, increasing from 38 to 77.</p></div></div>
+        <div class="insight"><div class="dot"></div><div><h3>Average daily claim improved in both markets</h3><p>MX had the strongest uplift, moving from 1.6 to 3.2 average daily claims.</p></div></div>
+      </div>
+      <div class="panel">
+        <h2>Before vs After Comparison</h2>
+        <table>
+          <thead><tr><th>Market</th><th>Metric</th><th>Before</th><th>After</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>BR</td><td>Unique Claim</td><td>42</td><td>49</td><td class="positive">+16.7%</td></tr>
+            <tr><td>BR</td><td>Total Transaction</td><td>146</td><td>148</td><td class="positive">+1.4%</td></tr>
+            <tr><td>BR</td><td>Avg Daily Claim</td><td>2.2</td><td>2.6</td><td class="positive">+16.7%</td></tr>
+            <tr><td>MX</td><td>Unique Claim</td><td>38</td><td>77</td><td class="positive">+102.6%</td></tr>
+            <tr><td>MX</td><td>Total Transaction</td><td>221</td><td>228</td><td class="positive">+3.2%</td></tr>
+            <tr><td>MX</td><td>Avg Daily Claim</td><td>1.6</td><td>3.2</td><td class="positive">+102.6%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="summary-box"><p><strong>Reload Boost Management Summary:</strong> Reload Boost improved user participation in both markets. BR showed stable incremental growth, while MX delivered the strongest reach expansion and average daily claim improvement.</p></section>
+  </section>
+
+  <div class="footer-note">Monthly Report Review · BR & MX Markets · KPI + FSD + Reload Boost Comparison</div>
+</main>
+
+<script>
+function showTab(event,tabId){
+  document.querySelectorAll('.tab-content').forEach(section=>section.classList.remove('active'));
+  document.querySelectorAll('.tab-button').forEach(button=>button.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
 </body>
 </html>
