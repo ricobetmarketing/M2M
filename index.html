@@ -1,627 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BR & MX Weekly KPI Comparison</title>
-
-  <style>
-    :root{
-      --bg:#07080d;
-      --panel:rgba(17,21,34,.88);
-      --card:rgba(255,255,255,.075);
-      --line:rgba(255,255,255,.12);
-      --text:#f7f3e8;
-      --muted:#a9adba;
-      --gold:#d6b46b;
-      --gold-light:#f1d58b;
-      --green:#54d18a;
-      --red:#ff6b6b;
-      --shadow:0 28px 70px rgba(0,0,0,.38);
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      font-family:Inter,Arial,sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%,rgba(214,180,107,.24),transparent 30%),
-        radial-gradient(circle at 88% 0%,rgba(94,117,180,.25),transparent 34%),
-        var(--bg);
-      color:var(--text);
-    }
-
-    .page{
-      width:min(1280px,calc(100% - 40px));
-      margin:auto;
-      padding:48px 0 72px;
-    }
-
-    .hero{
-      border:1px solid var(--line);
-      border-radius:36px;
-      padding:46px;
-      background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
-      box-shadow:var(--shadow);
-    }
-
-    .tag{
-      display:inline-block;
-      padding:9px 15px;
-      border:1px solid rgba(214,180,107,.42);
-      border-radius:999px;
-      color:var(--gold-light);
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-
-    h1{
-      margin:24px 0 14px;
-      font-size:clamp(42px,6vw,76px);
-      line-height:.96;
-      letter-spacing:-.06em;
-      max-width:980px;
-    }
-
-    .lead{
-      max-width:900px;
-      color:#d9d9df;
-      font-size:18px;
-      line-height:1.65;
-      margin:0;
-    }
-
-    .periods{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:28px;
-    }
-
-    .pill{
-      padding:12px 16px;
-      border-radius:16px;
-      background:rgba(255,255,255,.07);
-      border:1px solid var(--line);
-      color:#e9e4d5;
-      font-size:14px;
-    }
-
-    .summary-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:24px;
-      margin-top:28px;
-    }
-
-    .market-panel,
-    .panel{
-      padding:30px;
-      border-radius:32px;
-      border:1px solid var(--line);
-      background:var(--panel);
-      box-shadow:var(--shadow);
-    }
-
-    .market-head{
-      display:flex;
-      justify-content:space-between;
-      gap:18px;
-      margin-bottom:22px;
-    }
-
-    .market-title{
-      margin:0;
-      font-size:28px;
-      letter-spacing:-.04em;
-    }
-
-    .market-subtitle{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .status{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(214,180,107,.34);
-      color:var(--gold-light);
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      white-space:nowrap;
-    }
-
-    .kpi-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:14px;
-    }
-
-    .kpi{
-      min-height:150px;
-      padding:20px;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg,var(--card),rgba(255,255,255,.035));
-      box-shadow:0 16px 34px rgba(0,0,0,.2);
-    }
-
-    .label{
-      color:var(--muted);
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-    }
-
-    .value{
-      display:block;
-      margin-top:15px;
-      font-size:28px;
-      font-weight:800;
-      letter-spacing:-.04em;
-    }
-
-    .previous{
-      display:block;
-      margin-top:6px;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .change{
-      display:inline-block;
-      margin-top:14px;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      background:rgba(255,255,255,.075);
-    }
-
-    .positive{color:var(--green)}
-    .negative{color:var(--red)}
-
-    .content{
-      display:grid;
-      grid-template-columns:.9fr 1.1fr;
-      gap:24px;
-      margin-top:26px;
-    }
-
-    h2{
-      margin:0 0 20px;
-      font-size:25px;
-      letter-spacing:-.03em;
-    }
-
-    .insight{
-      display:grid;
-      grid-template-columns:18px 1fr;
-      gap:14px;
-      padding:18px 0;
-      border-top:1px solid var(--line);
-    }
-
-    .insight:first-of-type{
-      border-top:0;
-      padding-top:0;
-    }
-
-    .dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      margin-top:8px;
-      background:linear-gradient(135deg,var(--gold-light),var(--gold));
-      box-shadow:0 0 24px rgba(214,180,107,.7);
-    }
-
-    .insight h3{
-      margin:0 0 6px;
-      font-size:17px;
-    }
-
-    .insight p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.55;
-    }
-
-    .table-wrap{
-      overflow-x:auto;
-      border-radius:22px;
-      border:1px solid var(--line);
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:1180px;
-      background:rgba(255,255,255,.025);
-    }
-
-    th,td{
-      padding:14px 12px;
-      border-bottom:1px solid var(--line);
-      text-align:right;
-      font-size:13px;
-      white-space:nowrap;
-    }
-
-    th:first-child,
-    td:first-child{
-      text-align:left;
-      position:sticky;
-      left:0;
-      background:#111522;
-      z-index:1;
-    }
-
-    th{
-      color:var(--gold-light);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      background:rgba(214,180,107,.08);
-    }
-
-    .section-title{
-      margin-top:28px;
-    }
-
-    .metric-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:20px;
-      margin-top:24px;
-    }
-
-    .mini-table{
-      min-width:100%;
-    }
-
-    .mini-table th,
-    .mini-table td{
-      font-size:13px;
-    }
-
-    .mini-table th:first-child,
-    .mini-table td:first-child{
-      position:static;
-      background:transparent;
-    }
-
-    .summary-box{
-      margin-top:26px;
-      padding:25px;
-      border-radius:28px;
-      border:1px solid rgba(214,180,107,.32);
-      background:linear-gradient(135deg,rgba(214,180,107,.18),rgba(255,255,255,.045));
-    }
-
-    .summary-box p{
-      margin:0;
-      color:#ded7c5;
-      line-height:1.65;
-      font-size:16px;
-    }
-
-    .footer-note{
-      margin-top:24px;
-      color:var(--muted);
-      text-align:center;
-      font-size:13px;
-    }
-
-    @media(max-width:980px){
-      .summary-grid,
-      .content,
-      .metric-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:640px){
-      .page{
-        width:min(100% - 28px,1280px);
-        padding-top:28px;
-      }
-
-      .hero,
-      .panel,
-      .market-panel{
-        padding:24px;
-      }
-
-      .kpi-grid{
-        grid-template-columns:1fr;
-      }
-
-      .market-head{
-        flex-direction:column;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Month-to-Month Comparison Report</title>
+    <!-- Tailwind CSS for modern, beautiful styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-<body>
-<main class="page">
-
-  <section class="hero">
-    <div class="tag">Weekly KPI Comparison</div>
-
-    <h1>BR & Mexico Monthly Week Figure Report</h1>
-
-    <p class="lead">
-      This KPI report compares the same weekly period across each month, from January to June.
-      It allows both BR and MX markets to be reviewed side-by-side by week figure, market performance, profitability, promotion cost, margin, and existing user contribution.
-    </p>
-
-    <div class="periods">
-      <div class="pill">Comparison Window: 01–07 of Each Month</div>
-      <div class="pill">Markets: BR & MX</div>
-      <div class="pill">KPIs: Turnover · Deposit · Total(1) · Promotion · Margin · Unique Existing</div>
-    </div>
-  </section>
-
-  <section class="summary-grid">
-
-    <div class="market-panel">
-      <div class="market-head">
-        <div>
-          <h2 class="market-title">Brazil Latest Week</h2>
-          <div class="market-subtitle">Jun 01–07 compared with Q1 average</div>
+    <!-- Top Navigation / Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Month-to-Month Performance</h1>
+                <p class="text-sm text-slate-500">Executive Comparison Report</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live Data
+                </span>
+                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition shadow-xs cursor-pointer">
+                    Export / Print
+                </button>
+            </div>
         </div>
-        <div class="status">BR</div>
-      </div>
+    </header>
 
-      <div class="kpi-grid">
-        <div class="kpi">
-          <div class="label">Turnover</div>
-          <span class="value">$2,003,731</span>
-          <span class="previous">Q1 Avg: $810,156</span>
-          <span class="change positive">+147.3%</span>
-        </div>
+    <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
 
-        <div class="kpi">
-          <div class="label">Total Deposit</div>
-          <span class="value">$199,809</span>
-          <span class="previous">Q1 Avg: $127,685</span>
-          <span class="change positive">+56.5%</span>
-        </div>
+        <!-- 1. Key Performance Indicators (Latest Month Snapshot) -->
+        <section>
+            <h2 class="text-lg font-semibold text-slate-900 mb-4">Key Metrics Snapshot (Current Month vs Last Month)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1: ARPU -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">ARPU (Existing)</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">$85.50</span>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+4.2%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs $82.00 last month</p>
+                </div>
 
-        <div class="kpi">
-          <div class="label">Total (1)</div>
-          <span class="value">$19,723</span>
-          <span class="previous">Q1 Avg: $27,723</span>
-          <span class="change negative">-28.9%</span>
-        </div>
+                <!-- Card 2: User Spending -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">User Spending (Existing)</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">$425,000</span>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+8.1%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs $393,150 last month</p>
+                </div>
 
-        <div class="kpi">
-          <div class="label">Margin</div>
-          <span class="value">9.87%</span>
-          <span class="previous">Q1 Avg: 21.71%</span>
-          <span class="change negative">-11.84 pts</span>
-        </div>
-      </div>
-    </div>
+                <!-- Card 3: CRR Rate -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">CRR Rate (Retention)</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">78.3%</span>
+                        <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">-1.2%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs 79.5% last month</p>
+                </div>
 
-    <div class="market-panel">
-      <div class="market-head">
-        <div>
-          <h2 class="market-title">Mexico Latest Week</h2>
-          <div class="market-subtitle">Jun 01–07 compared with Q1 average</div>
-        </div>
-        <div class="status">MX</div>
-      </div>
+                <!-- Card 4: Existing Users -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Existing Users</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">4,970</span>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+3.5%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs 4,801 last month</p>
+                </div>
 
-      <div class="kpi-grid">
-        <div class="kpi">
-          <div class="label">Turnover</div>
-          <span class="value">$913,165</span>
-          <span class="previous">Q1 Avg: $823,955</span>
-          <span class="change positive">+10.8%</span>
-        </div>
+                <!-- Card 5: CVR -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">CVR (Conversion)</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">3.42%</span>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+0.25%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs 3.17% last month</p>
+                </div>
 
-        <div class="kpi">
-          <div class="label">Total Deposit</div>
-          <span class="value">$146,233</span>
-          <span class="previous">Q1 Avg: $102,366</span>
-          <span class="change positive">+42.9%</span>
-        </div>
+                <!-- Card 6: Total Deposit -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Deposit</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">$620,000</span>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+12.4%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs $551,600 last month</p>
+                </div>
 
-        <div class="kpi">
-          <div class="label">Total (1)</div>
-          <span class="value">$41,522</span>
-          <span class="previous">Q1 Avg: $23,082</span>
-          <span class="change positive">+79.9%</span>
-        </div>
+                <!-- Card 7: Total Promotions -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Promotions</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">$45,000</span>
+                        <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">+15.0%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs $39,130 last month (higher spend)</p>
+                </div>
 
-        <div class="kpi">
-          <div class="label">Margin</div>
-          <span class="value">28.39%</span>
-          <span class="previous">Q1 Avg: 22.55%</span>
-          <span class="change positive">+5.84 pts</span>
-        </div>
-      </div>
-    </div>
+                <!-- Card 8: Total Turnover -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Turnover</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold text-slate-900">$2,450,000</span>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+9.8%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">vs $2,231,300 last month</p>
+                </div>
 
-  </section>
+                <!-- Card 9: Total (1) / Net Revenue or Target -->
+                <div class="bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-2xl text-white shadow-md hover:shadow-xl transition">
+                    <p class="text-sm font-medium text-indigo-200 uppercase tracking-wider">Total (1)</p>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span class="text-3xl font-bold">$575,000</span>
+                        <span class="text-xs font-semibold bg-white/20 px-1.5 py-0.5 rounded">+12.1%</span>
+                    </div>
+                    <p class="text-xs text-indigo-200 mt-1">vs $512,470 last month</p>
+                </div>
 
-  <section class="content">
+            </div>
+        </section>
 
-    <div class="panel">
-      <h2>Executive Summary</h2>
+        <!-- 2. Visual Charts Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Chart Left: Revenue & Deposits -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <h3 class="text-base font-semibold text-slate-900 mb-4">Financial Volume Trends</h3>
+                <div class="h-64 flex items-center justify-center">
+                    <canvas id="financialChart"></canvas>
+                </div>
+            </div>
+            <!-- Chart Right: Conversion & Retention -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <h3 class="text-base font-semibold text-slate-900 mb-4">User Engagement & Conversion Rates (%)</h3>
+                <div class="h-64 flex items-center justify-center">
+                    <canvas id="ratesChart"></canvas>
+                </div>
+            </div>
+        </section>
 
-      <div class="insight">
-        <div class="dot"></div>
-        <div>
-          <h3>BR volume is strong, but profit quality softened</h3>
-          <p>
-            BR reached the highest turnover among the monthly weekly periods in June, but margin dropped to 9.87%, below the Q1 average.
-          </p>
-        </div>
-      </div>
+        <!-- 3. Comprehensive Data Table -->
+        <section class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <h3 class="text-base font-semibold text-slate-900">Historical Month-on-Month Data</h3>
+                <span class="text-xs text-slate-500">Values in USD where applicable</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-200 bg-slate-100/75 text-xs font-bold uppercase tracking-wider text-slate-600">
+                            <th class="py-4 px-6">Metric</th>
+                            <th class="py-4 px-6">Month 1 (MoM-2)</th>
+                            <th class="py-4 px-6">Month 2 (Previous)</th>
+                            <th class="py-4 px-6">Month 3 (Current)</th>
+                            <th class="py-4 px-6 text-right">MoM Change %</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-sm text-slate-700">
+                        <!-- ARPU -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">1. ARPU (Existing)</td>
+                            <td class="py-4 px-6">$80.00</td>
+                            <td class="py-4 px-6">$82.00</td>
+                            <td class="py-4 px-6 font-semibold">$85.50</td>
+                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+4.2%</td>
+                        </tr>
+                        <!-- User Spending -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">2. User Spending (Existing)</td>
+                            <td class="py-4 px-6">$380,000</td>
+                            <td class="py-4 px-6">$393,150</td>
+                            <td class="py-4 px-6 font-semibold">$425,000</td>
+                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+8.1%</td>
+                        </tr>
+                        <!-- CRR Rate -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">3. CRR Rate</td>
+                            <td class="py-4 px-6">81.0%</td>
+                            <td class="py-4 px-6">79.5%</td>
+                            <td class="py-4 px-6 font-semibold">78.3%</td>
+                            <td class="py-4 px-6 text-right text-rose-600 font-medium">-1.2%</td>
+                        </tr>
+                        <!-- Existing User -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">4. Existing User</td>
+                            <td class="py-4 px-6">4,750</td>
+                            <td class="py-4 px-6">4,801</td>
+                            <td class="py-4 px-6 font-semibold">4,970</td>
+                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+3.5%</td>
+                        </tr>
+                        <!-- CVR -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">5. CVR</td>
+                            <td class="py-4 px-6">3.10%</td>
+                            <td class="py-4 px-6">3.17%</td>
+                            <td class="py-4 px-6 font-semibold">3.42%</td>
+                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+7.8%</td>
+                        </tr>
+                        <!-- Total Deposit -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">6. Total Deposit</td>
+                            <td class="py-4 px-6">$520,000</td>
+                            <td class="py-4 px-6">$551,600</td>
+                            <td class="py-4 px-6 font-semibold">$620,000</td>
+                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+12.4%</td>
+                        </tr>
+                        <!-- Total Promotions -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">7. Total Promotions</td>
+                            <td class="py-4 px-6">$35,000</td>
+                            <td class="py-4 px-6">$39,130</td>
+                            <td class="py-4 px-6 font-semibold">$45,000</td>
+                            <td class="py-4 px-6 text-right text-rose-600 font-medium">+15.0%</td>
+                        </tr>
+                        <!-- Total Turnover -->
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-4 px-6 font-medium text-slate-900">8. Total Turnover</td>
+                            <td class="py-4 px-6">$2,100,000</td>
+                            <td class="py-4 px-6">$2,231,300</td>
+                            <td class="py-4 px-6 font-semibold">$2,450,000</td>
+                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+9.8%</td>
+                        </tr>
+                        <!-- Total (1) -->
+                        <tr class="bg-indigo-50/50 font-semibold text-slate-900">
+                            <td class="py-4 px-6">9. Total (1)</td>
+                            <td class="py-4 px-6">$485,000</td>
+                            <td class="py-4 px-6">$512,470</td>
+                            <td class="py-4 px-6 text-indigo-700 font-bold">$575,000</td>
+                            <td class="py-4 px-6 text-right text-emerald-600 font-bold">+12.1%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 
-      <div class="insight">
-        <div class="dot"></div>
-        <div>
-          <h3>MX shows better balance</h3>
-          <p>
-            MX improved turnover, deposit, Total(1), margin, and promotion efficiency versus Q1 average, making it the healthier market from a quality perspective.
-          </p>
-        </div>
-      </div>
+    <!-- JavaScript code to render charts dynamically -->
+    <script>
+        // Financial Trends Chart Data
+        const ctxFinancial = document.getElementById('financialChart').getContext('2d');
+        new Chart(ctxFinancial, {
+            type: 'bar',
+            data: {
+                labels: ['Month 1', 'Month 2', 'Month 3'],
+                datasets: [
+                    {
+                        label: 'Total Deposit',
+                        data: [520000, 551600, 620000],
+                        backgroundColor: '#4f46e5', // Indigo
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'Total (1)',
+                        data: [485000, 512470, 575000],
+                        backgroundColor: '#06b6d4', // Cyan
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'User Spending',
+                        data: [380000, 393150, 425000],
+                        backgroundColor: '#10b981', // Emerald
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } },
+                scales: { y: { ticks: { callback: value => '$' + value.toLocaleString() } } }
+            }
+        });
 
-      <div class="insight">
-        <div class="dot"></div>
-        <div>
-          <h3>Best weekly profit result</h3>
-          <p>
-            BR’s strongest Total(1) was in May at $61,032, while MX’s strongest Total(1) was also in May at $47,264.
-          </p>
-        </div>
-      </div>
-
-      <div class="insight">
-        <div class="dot"></div>
-        <div>
-          <h3>What to monitor next</h3>
-          <p>
-            BR should focus on improving margin and reducing promotion pressure, while MX should continue scaling deposit and turnover while maintaining efficiency.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Full Monthly Week Comparison</h2>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Week</th>
-              <th>BR Turnover</th>
-              <th>MX Turnover</th>
-              <th>BR Deposit</th>
-              <th>MX Deposit</th>
-              <th>BR Total(1)</th>
-              <th>MX Total(1)</th>
-              <th>BR Promotion</th>
-              <th>MX Promotion</th>
-              <th>BR Margin</th>
-              <th>MX Margin</th>
-              <th>BR Unique Existing</th>
-              <th>MX Unique Existing</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr><td>Jan 01–07</td><td>$838,271</td><td>$623,784</td><td>$124,562</td><td>$89,959</td><td>$24,020</td><td>$13,648</td><td>$9,670</td><td>$6,916</td><td>19.28%</td><td>15.17%</td><td>70</td><td>115</td></tr>
-            <tr><td>Feb 01–07</td><td>$738,596</td><td>$954,595</td><td>$118,493</td><td>$110,761</td><td>$37,860</td><td>$35,383</td><td>$8,128</td><td>$8,232</td><td>31.95%</td><td>31.95%</td><td>92</td><td>88</td></tr>
-            <tr><td>Mar 01–07</td><td>$853,601</td><td>$893,485</td><td>$140,001</td><td>$106,378</td><td>$21,290</td><td>$20,216</td><td>$8,815</td><td>$7,084</td><td>15.21%</td><td>19.00%</td><td>95</td><td>100</td></tr>
-            <tr><td>Apr 01–07</td><td>$1,616,194</td><td>$795,002</td><td>$230,269</td><td>$105,538</td><td>$16,706</td><td>$25,713</td><td>$13,252</td><td>$9,910</td><td>7.25%</td><td>24.36%</td><td>126</td><td>143</td></tr>
-            <tr><td>May 01–07</td><td>$1,051,544</td><td>$853,414</td><td>$162,339</td><td>$113,854</td><td>$61,032</td><td>$47,264</td><td>$8,048</td><td>$5,840</td><td>37.60%</td><td>41.51%</td><td>143</td><td>170</td></tr>
-            <tr><td>Jun 01–07</td><td>$2,003,731</td><td>$913,165</td><td>$199,809</td><td>$146,233</td><td>$19,723</td><td>$41,522</td><td>$12,056</td><td>$6,358</td><td>9.87%</td><td>28.39%</td><td>115</td><td>118</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </section>
-
-  <h2 class="section-title">Metric-by-Metric Monthly View</h2>
-
-  <section class="metric-grid">
-
-    <div class="panel">
-      <h2>Turnover</h2>
-      <div class="table-wrap">
-        <table class="mini-table">
-          <thead><tr><th>Week</th><th>BR</th><th>MX</th><th>Leader</th></tr></thead>
-          <tbody>
-            <tr><td>Jan 01–07</td><td>$838,271</td><td>$623,784</td><td>BR</td></tr>
-            <tr><td>Feb 01–07</td><td>$738,596</td><td>$954,595</td><td>MX</td></tr>
-            <tr><td>Mar 01–07</td><td>$853,601</td><td>$893,485</td><td>MX</td></tr>
-            <tr><td>Apr 01–07</td><td>$1,616,194</td><td>$795,002</td><td>BR</td></tr>
-            <tr><td>May 01–07</td><td>$1,051,544</td><td>$853,414</td><td>BR</td></tr>
-            <tr><td>Jun 01–07</td><td>$2,003,731</td><td>$913,165</td><td>BR</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Total Deposit</h2>
-      <div class="table-wrap">
-        <table class="mini-table">
-          <thead><tr><th>Week</th><th>BR</th><th>MX</th><th>Leader</th></tr></thead>
-          <tbody>
-            <tr><td>Jan 01–07</td><td>$124,562</td><td>$89,959</td><td>BR</td></tr>
-            <tr><td>Feb 01–07</td><td>$118,493</td><td>$110,761</td><td>BR</td></tr>
-            <tr><td>Mar 01–07</td><td>$140,001</td><td>$106,378</td><td>BR</td></tr>
-            <tr><td>Apr 01–07</td><td>$230,269</td><td>$105,538</td><td>BR</td></tr>
-            <tr><td>May 01–07</td><td>$162,339</td><td>$113,854</td><td>BR</td></tr>
-            <tr><td>Jun 01–07</td><td>$199,809</td><td>$146,233</td><td>BR</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Total (1)</h2>
-      <div class="table-wrap">
-        <table class="mini-table">
-          <thead><tr><th>Week</th><th>BR</th><th>MX</th><th>Leader</th></tr></thead>
-          <tbody>
-            <tr><td>Jan 01–07</td><td>$24,020</td><td>$13,648</td><td>BR</td></tr>
-            <tr><td>Feb 01–07</td><td>$37,860</td><td>$35,383</td><td>BR</td></tr>
-            <tr><td>Mar 01–07</td><td>$21,290</td><td>$20,216</td><td>BR</td></tr>
-            <tr><td>Apr 01–07</td><td>$16,706</td><td>$25,713</td><td>MX</td></tr>
-            <tr><td>May 01–07</td><td>$61,032</td><td>$47,264</td><td>BR</td></tr>
-            <tr><td>Jun 01–07</td><td>$19,723</td><td>$41,522</td><td>MX</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Margin</h2>
-      <div class="table-wrap">
-        <table class="mini-table">
-          <thead><tr><th>Week</th><th>BR</th><th>MX</th><th>Leader</th></tr></thead>
-          <tbody>
-            <tr><td>Jan 01–07</td><td>19.28%</td><td>15.17%</td><td>BR</td></tr>
-            <tr><td>Feb 01–07</td><td>31.95%</td><td>31.95%</td><td>Tie</td></tr>
-            <tr><td>Mar 01–07</td><td>15.21%</td><td>19.00%</td><td>MX</td></tr>
-            <tr><td>Apr 01–07</td><td>7.25%</td><td>24.36%</td><td>MX</td></tr>
-            <tr><td>May 01–07</td><td>37.60%</td><td>41.51%</td><td>MX</td></tr>
-            <tr><td>Jun 01–07</td><td>9.87%</td><td>28.39%</td><td>MX</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </section>
-
-  <section class="summary-box">
-    <p>
-      <strong>Management Summary:</strong>
-      The weekly month-by-month view shows BR leading most volume KPIs, especially Turnover and Total Deposit.
-      However, MX shows stronger profitability quality in recent months, leading Margin from March to June and outperforming BR in Total(1) during April and June.
-      The key action is to maintain BR’s volume growth while improving margin efficiency, and continue scaling MX because its profit quality is more stable.
-    </p>
-  </section>
-
-  <div class="footer-note">
-    BR & MX · Monthly Week Figure KPI Comparison · 01–07 Period View
-  </div>
-
-</main>
+        // Conversion and Retention Trends Chart Data
+        const ctxRates = document.getElementById('ratesChart').getContext('2d');
+        new Chart(ctxRates, {
+            type: 'line',
+            data: {
+                labels: ['Month 1', 'Month 2', 'Month 3'],
+                datasets: [
+                    {
+                        label: 'CRR Rate (%)',
+                        data: [81.0, 79.5, 78.3],
+                        borderColor: '#f43f5e', // Rose
+                        backgroundColor: 'transparent',
+                        tension: 0.3,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'CVR (%)',
+                        data: [3.10, 3.17, 3.42],
+                        borderColor: '#8b5cf6', // Violet
+                        backgroundColor: 'transparent',
+                        tension: 0.3,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } },
+                scales: {
+                    y: { type: 'linear', position: 'left', title: { display: true, text: 'CRR (%)' } },
+                    y1: { type: 'linear', position: 'right', title: { display: true, text: 'CVR (%)' }, grid: { drawOnChartArea: false } }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
