@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Month-to-Month Comparison Executive Dashboard</title>
+    <title>Month-to-Month Performance Report</title>
+    <!-- Tailwind CSS (v4) via CDN for professional UI styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js via CDN for responsive, animated presentation graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
 
+    <!-- Sticky Navigation Banner -->
     <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
@@ -16,6 +19,7 @@
                 <p class="text-sm text-slate-400">Comprehensive presentation across 9 primary key performance indicators</p>
             </div>
             
+            <!-- Context Control Panel -->
             <div class="flex items-center gap-4">
                 <div class="inline-flex rounded-xl bg-slate-800 p-1 border border-slate-700 shadow-inner">
                     <button onclick="changeMarket('MX')" id="tab-MX" class="px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white shadow-xs">
@@ -34,6 +38,7 @@
 
     <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
         
+        <!-- Segment Information Hero Block -->
         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
                 <span class="text-pink-500 text-xs font-bold uppercase tracking-widest bg-pink-500/10 px-2.5 py-1 rounded-md border border-pink-500/20">M2M Comparison Frame</span>
@@ -41,20 +46,23 @@
             </div>
             <div class="text-left md:text-right">
                 <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Active Comparison View</p>
-                <p class="text-sm font-bold text-slate-200 mt-1">
+                <div class="text-sm font-bold text-slate-200 mt-1 flex flex-wrap gap-2 items-center">
                     <span class="text-pink-400 font-extrabold bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 rounded">This Month: 01/06 - 15/06</span> 
-                    <span class="text-slate-500 mx-1">vs</span> 
+                    <span class="text-slate-500">vs</span> 
                     <span class="text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">Last Month: 01/05 - 15/05</span>
-                </p>
+                </div>
             </div>
         </div>
 
+        <!-- 1. Key Metrics Scorecard Grid (This Month vs Last Month Summary Section) -->
         <section>
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Latest Period Snapshot (vs Last Month)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="kpi-grid">
-                </div>
+                <!-- Data cards injected via script -->
+            </div>
         </section>
 
+        <!-- 2. Data Visualization Charts -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
                 <div class="mb-4">
@@ -77,6 +85,7 @@
             </div>
         </section>
 
+        <!-- 3. Historical Data Ledger Matrix -->
         <section class="bg-slate-900 rounded-2xl border border-slate-800 shadow-md overflow-hidden">
             <div class="px-6 py-4 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
                 <h4 class="text-base font-bold text-white">Complete Historical Performance Log</h4>
@@ -96,7 +105,8 @@
                         </tr>
                     </thead>
                     <tbody id="matrix-table-body" class="divide-y divide-slate-800 text-sm text-slate-300">
-                        </tbody>
+                        <!-- Table content dynamically loaded -->
+                    </tbody>
                 </table>
             </div>
         </section>
@@ -126,12 +136,10 @@
         let chartVolumeInstance = null;
         let chartRatioInstance = null;
 
-        // Clean values to numeric points for calculations & graphs
         function cleanNumericValue(input) {
             return parseFloat(input.replace(/[\$\s,%\(\)]/g, '')) || 0;
         }
 
-        // Helper to determine variance direction and format badge HTML output
         function computeVarianceBadge(currentRaw, pastRaw, isInvertedMetric = false) {
             const cur = cleanNumericValue(currentRaw);
             const prev = cleanNumericValue(pastRaw);
@@ -140,7 +148,6 @@
             const pct = ((cur - prev) / prev) * 100;
             const absolutePctStr = Math.abs(pct).toFixed(1) + "%";
             
-            // Inverted logic applies to spending metrics like promotions where a drop could mean optimization
             if (pct > 0) {
                 const colorClass = isInvertedMetric ? "text-rose-400 bg-rose-500/10 border-rose-500/20" : "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
                 return `<span class="px-2 py-0.5 rounded text-[11px] font-bold border ${colorClass}">▲ +${absolutePctStr}</span>`;
@@ -153,10 +160,9 @@
 
         function renderDashboardView() {
             const currentDataset = regionalStore[currentActiveMarket];
-            const thisMonth = currentDataset[0]; // 01/06 - 15/06
-            const lastMonth = currentDataset[1]; // 01/05 - 15/05
+            const thisMonth = currentDataset[0];
+            const lastMonth = currentDataset[1];
 
-            // A. Update Grid Snapshot with calculated MoM Variance flags
             const kpiGrid = document.getElementById('kpi-grid');
             const structuralGridData = [
                 { text: "1. ARPU (Existing)", curVal: thisMonth.arpu, prevVal: lastMonth.arpu },
@@ -174,7 +180,7 @@
                 const varianceHtml = computeVarianceBadge(item.curVal, item.prevVal, item.inverted);
                 if (item.anchorCard) {
                     return `
-                    <div class="bg-gradient-to-br from-purple-700 via-fuchsia-800 to-pink-600 p-5 rounded-2xl text-white shadow-lg border border-pink-500/30 hover:scale-[1.01] transition-transform duration-200">
+                    <div class="bg-gradient-to-br from-purple-700 via-fuchsia-800 to-pink-600 p-5 rounded-2xl text-white shadow-lg border border-pink-500/30">
                         <div class="flex justify-between items-center">
                             <p class="text-xs font-bold uppercase tracking-wider text-purple-100">${item.text}</p>
                             <span class="px-2 py-0.5 rounded text-[11px] font-bold border border-white/20 bg-white/10 text-white">MoM Focus</span>
@@ -187,7 +193,7 @@
                     </div>`;
                 }
                 return `
-                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm hover:border-slate-700 transition-all duration-200">
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm">
                     <div class="flex justify-between items-center">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-400">${item.text}</p>
                         ${varianceHtml}
@@ -197,7 +203,6 @@
                 </div>`;
             }).join('');
 
-            // B. Build Table Elements Matrix Row for Row
             const matrixTableBody = document.getElementById('matrix-table-body');
             const keysDef = [
                 { label: "1. ARPU (Existing)", accessor: 'arpu' },
@@ -217,7 +222,7 @@
                 const premiumCellClass = (idx) => idx === 0 ? 'text-pink-400 font-bold bg-pink-500/5' : '';
                 
                 return `
-                <tr class="${trClass} transition-colors duration-150 whitespace-nowrap">
+                <tr class="${trClass} whitespace-nowrap">
                     <td class="py-3.5 px-6 ${labelStyle}">${def.label}</td>
                     <td class="py-3.5 px-6 ${premiumCellClass(0)}">${currentDataset[0][def.accessor]}</td>
                     <td class="py-3.5 px-6 ${premiumCellClass(1)}">${currentDataset[1][def.accessor]}</td>
@@ -228,7 +233,6 @@
                 </tr>`;
             }).join('');
 
-            // C. Setup Chart Data Mappings (Reversed for logical chronological order flow)
             const chronologicalSet = [...currentDataset].reverse();
             const timeAxisLabels = chronologicalSet.map(item => item.period);
 
@@ -239,11 +243,9 @@
             const dataVectorCRR = chronologicalSet.map(item => cleanNumericValue(item.crr));
             const dataVectorCVR = chronologicalSet.map(item => cleanNumericValue(item.cvr));
 
-            // Reset chart references before updating canvas views
             if (chartVolumeInstance) chartVolumeInstance.destroy();
             if (chartRatioInstance) chartRatioInstance.destroy();
 
-            // Construct volume bars chart context
             chartVolumeInstance = new Chart(document.getElementById('financialVolumeChart').getContext('2d'), {
                 type: 'bar',
                 data: {
@@ -265,7 +267,6 @@
                 }
             });
 
-            // Construct performance curves line chart context
             chartRatioInstance = new Chart(document.getElementById('ratioMetricsChart').getContext('2d'), {
                 type: 'line',
                 data: {
