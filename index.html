@@ -3,318 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Month-to-Month Comparison Report</title>
-    <!-- Tailwind CSS for modern, beautiful styling -->
+    <title>Month-to-Month Comparison Executive Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen">
 
-    <!-- Top Navigation / Header -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Month-to-Month Performance</h1>
-                <p class="text-sm text-slate-500">Executive Comparison Report</p>
+                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Month-to-Month Performance Report</h1>
+                <p class="text-sm text-slate-500">Comprehensive presentation across 9 primary key performance indicators</p>
             </div>
-            <div class="flex items-center gap-3">
-                <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live Data
-                </span>
-                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition shadow-xs cursor-pointer">
-                    Export / Print
+            
+            <div class="flex items-center gap-4">
+                <div class="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200 shadow-inner">
+                    <button onclick="changeMarket('MX')" id="tab-MX" class="px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-white text-indigo-600 shadow-xs">
+                        Mexico (MX)
+                    </button>
+                    <button onclick="changeMarket('BR')" id="tab-BR" class="px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer text-slate-600 hover:text-slate-900">
+                        Brazil (BR)
+                    </button>
+                </div>
+                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-xl transition shadow-xs cursor-pointer">
+                    Print / Export PDF
                 </button>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        
+        <div class="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <span class="text-indigo-400 text-xs font-bold uppercase tracking-widest bg-indigo-950/60 px-2.5 py-1 rounded-md border border-indigo-900/50">Presentation Dashboard</span>
+                <h2 id="market-title" class="text-2xl font-bold mt-2">Mexico (MX) Performance Matrix</h2>
+            </div>
+            <div class="text-left md:text-right">
+                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Latest Audit Window</p>
+                <p class="text-base font-bold text-white bg-white/10 px-3 py-1 rounded-lg mt-1 border border-white/10">01/06 - 15/06</p>
+            </div>
+        </div>
 
-        <!-- 1. Key Performance Indicators (Latest Month Snapshot) -->
         <section>
-            <h2 class="text-lg font-semibold text-slate-900 mb-4">Key Metrics Snapshot (Current Month vs Last Month)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Card 1: ARPU -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">ARPU (Existing)</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">$85.50</span>
-                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+4.2%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs $82.00 last month</p>
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Latest Period Snapshot</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="kpi-grid">
                 </div>
-
-                <!-- Card 2: User Spending -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">User Spending (Existing)</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">$425,000</span>
-                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+8.1%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs $393,150 last month</p>
-                </div>
-
-                <!-- Card 3: CRR Rate -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">CRR Rate (Retention)</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">78.3%</span>
-                        <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">-1.2%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs 79.5% last month</p>
-                </div>
-
-                <!-- Card 4: Existing Users -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Existing Users</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">4,970</span>
-                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+3.5%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs 4,801 last month</p>
-                </div>
-
-                <!-- Card 5: CVR -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">CVR (Conversion)</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">3.42%</span>
-                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+0.25%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs 3.17% last month</p>
-                </div>
-
-                <!-- Card 6: Total Deposit -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Deposit</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">$620,000</span>
-                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+12.4%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs $551,600 last month</p>
-                </div>
-
-                <!-- Card 7: Total Promotions -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Promotions</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">$45,000</span>
-                        <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">+15.0%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs $39,130 last month (higher spend)</p>
-                </div>
-
-                <!-- Card 8: Total Turnover -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition">
-                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Turnover</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold text-slate-900">$2,450,000</span>
-                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+9.8%</span>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-1">vs $2,231,300 last month</p>
-                </div>
-
-                <!-- Card 9: Total (1) / Net Revenue or Target -->
-                <div class="bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-2xl text-white shadow-md hover:shadow-xl transition">
-                    <p class="text-sm font-medium text-indigo-200 uppercase tracking-wider">Total (1)</p>
-                    <div class="flex items-baseline gap-2 mt-2">
-                        <span class="text-3xl font-bold">$575,000</span>
-                        <span class="text-xs font-semibold bg-white/20 px-1.5 py-0.5 rounded">+12.1%</span>
-                    </div>
-                    <p class="text-xs text-indigo-200 mt-1">vs $512,470 last month</p>
-                </div>
-
-            </div>
         </section>
 
-        <!-- 2. Visual Charts Section -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Chart Left: Revenue & Deposits -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
-                <h3 class="text-base font-semibold text-slate-900 mb-4">Financial Volume Trends</h3>
-                <div class="h-64 flex items-center justify-center">
-                    <canvas id="financialChart"></canvas>
+                <div class="mb-4">
+                    <h4 class="text-base font-bold text-slate-900">Financial Volumes & Liquidity</h4>
+                    <p class="text-xs text-slate-400">Chronological history mapping Turnover, Total Deposits, and Total(1)</p>
+                </div>
+                <div class="h-72">
+                    <canvas id="financialVolumeChart"></canvas>
                 </div>
             </div>
-            <!-- Chart Right: Conversion & Retention -->
+
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
-                <h3 class="text-base font-semibold text-slate-900 mb-4">User Engagement & Conversion Rates (%)</h3>
-                <div class="h-64 flex items-center justify-center">
-                    <canvas id="ratesChart"></canvas>
+                <div class="mb-4">
+                    <h4 class="text-base font-bold text-slate-900">User Ratios & Conversion Profiles</h4>
+                    <p class="text-xs text-slate-400">Tracking percentages across Conversion Rate (CVR) and Retention (CRR)</p>
+                </div>
+                <div class="h-72">
+                    <canvas id="ratioMetricsChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Comprehensive Data Table -->
         <section class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-            <div class="px-6 py-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
-                <h3 class="text-base font-semibold text-slate-900">Historical Month-on-Month Data</h3>
-                <span class="text-xs text-slate-500">Values in USD where applicable</span>
+            <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/70 flex justify-between items-center">
+                <h4 class="text-base font-bold text-slate-900">Complete Historical Performance Log</h4>
+                <span class="text-xs font-semibold bg-slate-200/60 text-slate-600 px-2.5 py-1 rounded-md">Newest to Oldest</span>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-slate-200 bg-slate-100/75 text-xs font-bold uppercase tracking-wider text-slate-600">
-                            <th class="py-4 px-6">Metric</th>
-                            <th class="py-4 px-6">Month 1 (MoM-2)</th>
-                            <th class="py-4 px-6">Month 2 (Previous)</th>
-                            <th class="py-4 px-6">Month 3 (Current)</th>
-                            <th class="py-4 px-6 text-right">MoM Change %</th>
+                        <tr class="border-b border-slate-200 bg-slate-100/70 text-xs font-bold uppercase tracking-wider text-slate-600 whitespace-nowrap">
+                            <th class="py-3.5 px-6">Required Presentation Metrics</th>
+                            <th class="py-3.5 px-6 bg-indigo-50/40 text-indigo-950 font-extrabold">01/06 - 15/06</th>
+                            <th class="py-3.5 px-6">01/05 - 15/05</th>
+                            <th class="py-3.5 px-6">01/04 - 15/04</th>
+                            <th class="py-3.5 px-6">01/03 - 15/03</th>
+                            <th class="py-3.5 px-6">01/02 - 15/02</th>
+                            <th class="py-3.5 px-6">01/01 - 15/01</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-200 text-sm text-slate-700">
-                        <!-- ARPU -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">1. ARPU (Existing)</td>
-                            <td class="py-4 px-6">$80.00</td>
-                            <td class="py-4 px-6">$82.00</td>
-                            <td class="py-4 px-6 font-semibold">$85.50</td>
-                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+4.2%</td>
-                        </tr>
-                        <!-- User Spending -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">2. User Spending (Existing)</td>
-                            <td class="py-4 px-6">$380,000</td>
-                            <td class="py-4 px-6">$393,150</td>
-                            <td class="py-4 px-6 font-semibold">$425,000</td>
-                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+8.1%</td>
-                        </tr>
-                        <!-- CRR Rate -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">3. CRR Rate</td>
-                            <td class="py-4 px-6">81.0%</td>
-                            <td class="py-4 px-6">79.5%</td>
-                            <td class="py-4 px-6 font-semibold">78.3%</td>
-                            <td class="py-4 px-6 text-right text-rose-600 font-medium">-1.2%</td>
-                        </tr>
-                        <!-- Existing User -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">4. Existing User</td>
-                            <td class="py-4 px-6">4,750</td>
-                            <td class="py-4 px-6">4,801</td>
-                            <td class="py-4 px-6 font-semibold">4,970</td>
-                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+3.5%</td>
-                        </tr>
-                        <!-- CVR -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">5. CVR</td>
-                            <td class="py-4 px-6">3.10%</td>
-                            <td class="py-4 px-6">3.17%</td>
-                            <td class="py-4 px-6 font-semibold">3.42%</td>
-                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+7.8%</td>
-                        </tr>
-                        <!-- Total Deposit -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">6. Total Deposit</td>
-                            <td class="py-4 px-6">$520,000</td>
-                            <td class="py-4 px-6">$551,600</td>
-                            <td class="py-4 px-6 font-semibold">$620,000</td>
-                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+12.4%</td>
-                        </tr>
-                        <!-- Total Promotions -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">7. Total Promotions</td>
-                            <td class="py-4 px-6">$35,000</td>
-                            <td class="py-4 px-6">$39,130</td>
-                            <td class="py-4 px-6 font-semibold">$45,000</td>
-                            <td class="py-4 px-6 text-right text-rose-600 font-medium">+15.0%</td>
-                        </tr>
-                        <!-- Total Turnover -->
-                        <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-4 px-6 font-medium text-slate-900">8. Total Turnover</td>
-                            <td class="py-4 px-6">$2,100,000</td>
-                            <td class="py-4 px-6">$2,231,300</td>
-                            <td class="py-4 px-6 font-semibold">$2,450,000</td>
-                            <td class="py-4 px-6 text-right text-emerald-600 font-medium">+9.8%</td>
-                        </tr>
-                        <!-- Total (1) -->
-                        <tr class="bg-indigo-50/50 font-semibold text-slate-900">
-                            <td class="py-4 px-6">9. Total (1)</td>
-                            <td class="py-4 px-6">$485,000</td>
-                            <td class="py-4 px-6">$512,470</td>
-                            <td class="py-4 px-6 text-indigo-700 font-bold">$575,000</td>
-                            <td class="py-4 px-6 text-right text-emerald-600 font-bold">+12.1%</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="matrix-table-body" class="divide-y divide-slate-200 text-sm text-slate-700">
+                        </tbody>
                 </table>
             </div>
         </section>
     </main>
 
-    <!-- JavaScript code to render charts dynamically -->
     <script>
-        // Financial Trends Chart Data
-        const ctxFinancial = document.getElementById('financialChart').getContext('2d');
-        new Chart(ctxFinancial, {
-            type: 'bar',
-            data: {
-                labels: ['Month 1', 'Month 2', 'Month 3'],
-                datasets: [
-                    {
-                        label: 'Total Deposit',
-                        data: [520000, 551600, 620000],
-                        backgroundColor: '#4f46e5', // Indigo
-                        borderRadius: 6
-                    },
-                    {
-                        label: 'Total (1)',
-                        data: [485000, 512470, 575000],
-                        backgroundColor: '#06b6d4', // Cyan
-                        borderRadius: 6
-                    },
-                    {
-                        label: 'User Spending',
-                        data: [380000, 393150, 425000],
-                        backgroundColor: '#10b981', // Emerald
-                        borderRadius: 6
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom' } },
-                scales: { y: { ticks: { callback: value => '$' + value.toLocaleString() } } }
-            }
-        });
+        const regionalStore = {
+            MX: [
+                { period: "01/06 - 15/06", arpu: "$ 418.16", spending: "$ 2,198.77", crr: "43.98%", users: "168", cvr: "12.65%", deposit: "$ 380,835.12", promo: "$ 20,406.43", turnover: "$ 3,669,771.12", total1: "$ 92,493.19" },
+                { period: "01/05 - 15/05", arpu: "$ 269.21", spending: "$ 859.64", crr: "66.17%", users: "221", cvr: "9.73%", deposit: "$ 206,635.54", promo: "$ 15,567.30", turnover: "$ 1,743,010.19", total1: "$ 74,369.87" },
+                { period: "01/04 - 15/04", arpu: "$ 239.68", spending: "$ 1,018.78", crr: "68.52%", users: "185", cvr: "17.53%", deposit: "$ 210,072.78", promo: "$ 18,051.41", turnover: "$ 1,744,586.42", total1: "$ 60,640.51" },
+                { period: "01/03 - 15/03", arpu: "$ 377.50", spending: "$ 1,443.76", crr: "83.61%", users: "153", cvr: "17.06%", deposit: "$ 249,135.58", promo: "$ 18,191.93", turnover: "$ 2,053,845.76", total1: "$ 82,523.21" },
+                { period: "01/02 - 15/02", arpu: "$ 334.44", spending: "$ 1,480.43", crr: "59.29%", users: "134", cvr: "7.56%", deposit: "$ 210,638.22", promo: "$ 15,381.83", turnover: "$ 1,725,512.40", total1: "$ 65,195.04" },
+                { period: "01/01 - 15/01", arpu: "$ 91.35", spending: "$ 1,051.84", crr: "61.06%", users: "138", cvr: "9.00%", deposit: "$ 158,497.45", promo: "$ 14,362.06", turnover: "$ 1,095,712.31", total1: "$ 36,035.00" }
+            ],
+            BR: [
+                { period: "01/06 - 15/06", arpu: "$ 280.95", spending: "$ 2,357.80", crr: "40.31%", users: "154", cvr: "11.07%", deposit: "$ 410,298.57", promo: "$ 22,198.93", turnover: "$ 3,034,590.76", total1: "$ 93,169.56" },
+                { period: "01/05 - 15/05", arpu: "$ 440.87", spending: "$ 1,110.02", crr: "44.78%", users: "193", cvr: "14.24%", deposit: "$ 390,619.20", promo: "$ 17,033.48", turnover: "$ 2,327,736.53", total1: "$ 106,300.04" },
+                { period: "01/04 - 15/04", arpu: "$ 104.97", spending: "$ 2,341.30", crr: "49.39%", users: "163", cvr: "14.29%", deposit: "$ 446,871.61", promo: "$ 25,208.72", turnover: "$ 2,906,544.56", total1: "$ 54,224.56" },
+                { period: "01/03 - 15/03", arpu: "$ 279.01", spending: "$ 1,866.99", crr: "70.59%", users: "132", cvr: "12.47%", deposit: "$ 284,527.46", promo: "$ 18,249.94", turnover: "$ 1,653,129.69", total1: "$ 64,311.93" },
+                { period: "01/02 - 15/02", arpu: "$ 347.12", spending: "$ 1,674.89", crr: "63.05%", users: "128", cvr: "7.15%", deposit: "$ 222,965.84", promo: "$ 16,647.01", turnover: "$ 1,367,139.15", total1: "$ 59,427.88" },
+                { period: "01/01 - 15/01", arpu: "$ 273.92", spending: "$ 2,093.70", crr: "53.20%", users: "108", cvr: "6.34%", deposit: "$ 266,025.30", promo: "$ 23,537.05", turnover: "$ 1,734,883.34", total1: "$ 48,454.66" }
+            ]
+        };
 
-        // Conversion and Retention Trends Chart Data
-        const ctxRates = document.getElementById('ratesChart').getContext('2d');
-        new Chart(ctxRates, {
-            type: 'line',
-            data: {
-                labels: ['Month 1', 'Month 2', 'Month 3'],
-                datasets: [
-                    {
-                        label: 'CRR Rate (%)',
-                        data: [81.0, 79.5, 78.3],
-                        borderColor: '#f43f5e', // Rose
-                        backgroundColor: 'transparent',
-                        tension: 0.3,
-                        yAxisID: 'y'
-                    },
-                    {
-                        label: 'CVR (%)',
-                        data: [3.10, 3.17, 3.42],
-                        borderColor: '#8b5cf6', // Violet
-                        backgroundColor: 'transparent',
-                        tension: 0.3,
-                        yAxisID: 'y1'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom' } },
-                scales: {
-                    y: { type: 'linear', position: 'left', title: { display: true, text: 'CRR (%)' } },
-                    y1: { type: 'linear', position: 'right', title: { display: true, text: 'CVR (%)' }, grid: { drawOnChartArea: false } }
+        let currentActiveMarket = 'MX';
+        let chartVolumeInstance = null;
+        let chartRatioInstance = null;
+
+        // Data processing helper function to parse values cleanly for ChartJS vectors
+        function cleanNumericValue(input) {
+            return parseFloat(input.replace(/[\$\s,%\(\)]/g, '')) || 0;
+        }
+
+        function renderDashboardView() {
+            const currentDataset = regionalStore[currentActiveMarket];
+            const primaryRecord = currentDataset[0]; // Extracting latest window (01/06 - 15/06)
+
+            // A. Update Grid Highlights Snapshot
+            const kpiGrid = document.getElementById('kpi-grid');
+            const structuralGridData = [
+                { text: "1. ARPU (Existing)", metricValue: primaryRecord.arpu },
+                { text: "2. User Spending (Existing)", metricValue: primaryRecord.spending },
+                { text: "3. CRR Rate", metricValue: primaryRecord.crr, highlightingClass: "text-teal-600" },
+                { text: "4. Existing User", metricValue: primaryRecord.users },
+                { text: "5. CVR", metricValue: primaryRecord.cvr, highlightingClass: "text-indigo-600" },
+                { text: "6. Total Deposit", metricValue: primaryRecord.deposit },
+                { text: "7. Total Promotions", metricValue: primaryRecord.promo, highlightingClass: "text-amber-700" },
+                { text: "8. Total Turnover", metricValue: primaryRecord.turnover },
+                { text: "9. Total (1)", metricValue: primaryRecord.total1, anchorCard: true }
+            ];
+
+            kpiGrid.innerHTML = structuralGridData.map(item => {
+                if (item.anchorCard) {
+                    return `
+                    <div class="bg-gradient-to-br from-indigo-600 to-violet-700 p-5 rounded-2xl text-white shadow-md border border-indigo-500 hover:scale-[1.01] transition-transform duration-200">
+                        <p class="text-xs font-bold uppercase tracking-wider text-indigo-200">${item.text}</p>
+                        <div class="text-3xl font-black mt-1.5 tracking-tight">${item.metricValue}</div>
+                        <p class="text-[11px] text-indigo-100/70 mt-1.5 font-medium">Primary Net Revenue Baseline Focus</p>
+                    </div>`;
                 }
+                return `
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs hover:shadow-sm transition-shadow duration-200">
+                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400">${item.text}</p>
+                    <div class="text-2xl font-bold mt-1.5 tracking-tight ${item.highlightingClass || 'text-slate-900'}">${item.metricValue}</div>
+                    <p class="text-[11px] text-slate-400 mt-1.5 font-medium">vs prior recorded frames</p>
+                </div>`;
+            }).join('');
+
+            // B. Build Table Elements Matrix Row for Row
+            const matrixTableBody = document.getElementById('matrix-table-body');
+            const keysDef = [
+                { label: "1. ARPU (Existing)", accessor: 'arpu' },
+                { label: "2. User Spending (Existing)", accessor: 'spending' },
+                { label: "3. CRR Rate", accessor: 'crr' },
+                { label: "4. Existing User", accessor: 'users' },
+                { label: "5. CVR", accessor: 'cvr' },
+                { label: "6. Total Deposit", accessor: 'deposit' },
+                { label: "7. Total Promotions", accessor: 'promo' },
+                { label: "8. Total Turnover", accessor: 'turnover' },
+                { label: "9. Total (1)", accessor: 'total1', anchorRow: true }
+            ];
+
+            matrixTableBody.innerHTML = keysDef.map(def => {
+                const trClass = def.anchorRow ? 'bg-indigo-50/60 font-bold text-indigo-950 border-t-2 border-indigo-100' : 'hover:bg-slate-50/70';
+                const labelStyle = def.anchorRow ? 'text-indigo-950 font-black' : 'font-semibold text-slate-900';
+                const premiumCellClass = (idx) => idx === 0 && def.anchorRow ? 'text-indigo-700 font-black bg-indigo-100/40' : (idx === 0 ? 'bg-indigo-50/20 font-bold text-slate-900' : '');
+                
+                return `
+                <tr class="${trClass} transition-colors duration-150 whitespace-nowrap">
+                    <td class="py-3.5 px-6 ${labelStyle}">${def.label}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(0)}">${currentDataset[0][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(1)}">${currentDataset[1][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(2)}">${currentDataset[2][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(3)}">${currentDataset[3][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(4)}">${currentDataset[4][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(5)}">${currentDataset[5][def.accessor]}</td>
+                </tr>`;
+            }).join('');
+
+            // C. Setup Visual Graph Pipelines (Reversing data chronological path for left-to-right historical timeline logic)
+            const chronologicalSet = [...currentDataset].reverse();
+            const timeAxisLabels = chronologicalSet.map(item => item.period);
+
+            const dataVectorTurnover = chronologicalSet.map(item => cleanNumericValue(item.turnover));
+            const dataVectorDeposit = chronologicalSet.map(item => cleanNumericValue(item.deposit));
+            const dataVectorTotal1 = chronologicalSet.map(item => cleanNumericValue(item.total1));
+
+            const dataVectorCRR = chronologicalSet.map(item => cleanNumericValue(item.crr));
+            const dataVectorCVR = chronologicalSet.map(item => cleanNumericValue(item.cvr));
+
+            // Destroy historical context maps cleanly before instantiation loops
+            if (chartVolumeInstance) chartVolumeInstance.destroy();
+            if (chartRatioInstance) chartRatioInstance.destroy();
+
+            // Construct volume bars chart context
+            chartVolumeInstance = new Chart(document.getElementById('financialVolumeChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: timeAxisLabels,
+                    datasets: [
+                        { label: 'Total Turnover', data: dataVectorTurnover, backgroundColor: '#1e1b4b', borderRadius: 4 },
+                        { label: 'Total Deposit', data: dataVectorDeposit, backgroundColor: '#4f46e5', borderRadius: 4 },
+                        { label: 'Total (1)', data: dataVectorTotal1, backgroundColor: '#06b6d4', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11, weight: '500' } } } },
+                    scales: {
+                        y: { ticks: { font: { size: 10 }, callback: v => '$' + v.toLocaleString() }, grid: { color: '#f1f5f9' } },
+                        x: { ticks: { font: { size: 10 } }, grid: { display: false } }
+                    }
+                }
+            });
+
+            // Construct performance curves line chart context
+            chartRatioInstance = new Chart(document.getElementById('ratioMetricsChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: timeAxisLabels,
+                    datasets: [
+                        { label: 'CRR Rate (%)', data: dataVectorCRR, borderColor: '#0f766e', backgroundColor: 'transparent', tension: 0.2, borderWidth: 2.5, pointRadius: 4, yAxisID: 'y' },
+                        { label: 'CVR (%)', data: dataVectorCVR, borderColor: '#4338ca', backgroundColor: 'transparent', tension: 0.2, borderWidth: 2.5, pointRadius: 4, yAxisID: 'y1' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11, weight: '500' } } } },
+                    scales: {
+                        y: { type: 'linear', position: 'left', title: { display: true, text: 'CRR %', font: { size: 11, weight: '600' } }, ticks: { font: { size: 10 } }, grid: { color: '#f1f5f9' } },
+                        y1: { type: 'linear', position: 'right', title: { display: true, text: 'CVR %', font: { size: 11, weight: '600' } }, ticks: { font: { size: 10 } }, grid: { drawOnChartArea: false } },
+                        x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function changeMarket(marketCode) {
+            currentActiveMarket = marketCode;
+            
+            // Adjust market title context string
+            document.getElementById('market-title').innerText = marketCode === 'MX' ? 'Mexico (MX) Performance Matrix' : 'Brazil (BR) Performance Matrix';
+            
+            // Re-apply tab active class weights
+            const tabMX = document.getElementById('tab-MX');
+            const tabBR = document.getElementById('tab-BR');
+            
+            if (marketCode === 'MX') {
+                tabMX.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-white text-indigo-600 shadow-xs";
+                tabBR.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer text-slate-600 hover:text-slate-900";
+            } else {
+                tabBR.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-white text-indigo-600 shadow-xs";
+                tabMX.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer text-slate-600 hover:text-slate-900";
             }
-        });
+            
+            // Re-execute display rendering engine pass
+            renderDashboardView();
+        }
+
+        // Initialize execution on complete file viewport load
+        window.onload = renderDashboardView;
     </script>
 </body>
 </html>
