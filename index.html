@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Month-to-Month Performance Report</title>
-    <!-- Tailwind CSS (v4) via CDN for professional UI styling -->
+    <title>Month-to-Month Performance Executive Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Chart.js via CDN for responsive, animated presentation graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
 
-    <!-- Sticky Navigation Banner -->
     <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
@@ -19,7 +16,6 @@
                 <p class="text-sm text-slate-400">Comprehensive presentation across 9 primary key performance indicators</p>
             </div>
             
-            <!-- Context Control Panel -->
             <div class="flex items-center gap-4">
                 <div class="inline-flex rounded-xl bg-slate-800 p-1 border border-slate-700 shadow-inner">
                     <button onclick="changeMarket('MX')" id="tab-MX" class="px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white shadow-xs">
@@ -38,7 +34,6 @@
 
     <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
         
-        <!-- Segment Information Hero Block -->
         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
                 <span class="text-pink-500 text-xs font-bold uppercase tracking-widest bg-pink-500/10 px-2.5 py-1 rounded-md border border-pink-500/20">M2M Comparison Frame</span>
@@ -54,15 +49,12 @@
             </div>
         </div>
 
-        <!-- 1. Key Metrics Scorecard Grid (This Month vs Last Month Summary Section) -->
         <section>
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Latest Period Snapshot (vs Last Month)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="kpi-grid">
-                <!-- Data cards injected via script -->
-            </div>
+                </div>
         </section>
 
-        <!-- 2. Data Visualization Charts -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
                 <div class="mb-4">
@@ -85,11 +77,10 @@
             </div>
         </section>
 
-        <!-- 3. Historical Data Ledger Matrix -->
         <section class="bg-slate-900 rounded-2xl border border-slate-800 shadow-md overflow-hidden">
             <div class="px-6 py-4 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
                 <h4 class="text-base font-bold text-white">Complete Historical Performance Log</h4>
-                <span class="text-xs font-semibold bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">All Available Windows</span>
+                <span class="text-xs font-semibold bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">All Available Available Windows</span>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -105,8 +96,7 @@
                         </tr>
                     </thead>
                     <tbody id="matrix-table-body" class="divide-y divide-slate-800 text-sm text-slate-300">
-                        <!-- Table content dynamically loaded -->
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </section>
@@ -115,20 +105,20 @@
     <script>
         const regionalStore = {
             MX: [
-                { period: "01/06 - 15/06", arpu: "$ 418.16", spending: "$ 2,198.77", crr: "43.98%", users: "168", cvr: "12.65%", deposit: "$ 380,835.12", promo: "$ 20,406.43", turnover: "$ 3,669,771.12", total1: "$ 92,493.19" },
+                { period: "01/06 - 15/06", arpu: "$ 418.16", spending: "$ 2,198.77", crr: "94.92%", users: "168", cvr: "12.65%", deposit: "$ 380,835.12", promo: "$ 20,406.43", turnover: "$ 3,669,771.12", total1: "$ 92,493.19" },
                 { period: "01/05 - 15/05", arpu: "$ 269.21", spending: "$ 859.64", crr: "66.17%", users: "221", cvr: "9.73%", deposit: "$ 206,635.54", promo: "$ 15,567.30", turnover: "$ 1,743,010.19", total1: "$ 74,369.87" },
-                { period: "01/04 - 15/04", arpu: "$ 239.68", spending: "$ 1,018.78", crr: "68.52%", users: "185", cvr: "17.53%", deposit: "$ 210,072.78", promo: "$ 18,051.41", turnover: "$ 1,744,586.42", total1: "$ 60,640.51" },
-                { period: "01/03 - 15/03", arpu: "$ 377.50", spending: "$ 1,443.76", crr: "83.61%", users: "153", cvr: "17.06%", deposit: "$ 249,135.58", promo: "$ 18,191.93", turnover: "$ 2,053,845.76", total1: "$ 82,523.21" },
-                { period: "01/02 - 15/02", arpu: "$ 334.44", spending: "$ 1,480.43", crr: "59.29%", users: "134", cvr: "7.56%", deposit: "$ 210,638.22", promo: "$ 15,381.83", turnover: "$ 1,725,512.40", total1: "$ 65,195.04" },
-                { period: "01/01 - 15/01", arpu: "$ 91.35", spending: "$ 1,051.84", crr: "61.06%", users: "138", cvr: "9.00%", deposit: "$ 158,497.45", promo: "$ 14,362.06", turnover: "$ 1,095,712.31", total1: "$ 36,035.00" }
+                { period: "01/04 - 15/04", arpu: "$ 239.68", spending: "$ 1,018.78", crr: "69.81%", users: "185", cvr: "17.53%", deposit: "$ 210,072.78", promo: "$ 18,051.41", turnover: "$ 1,744,586.42", total1: "$ 60,640.51" },
+                { period: "01/03 - 15/03", arpu: "$ 377.50", spending: "$ 1,443.76", crr: "58.62%", users: "153", cvr: "17.06%", deposit: "$ 249,135.58", promo: "$ 18,191.93", turnover: "$ 2,053,845.76", total1: "$ 82,523.21" },
+                { period: "01/02 - 15/02", arpu: "$ 334.44", spending: "$ 1,480.43", crr: "29.52%", users: "134", cvr: "7.56%", deposit: "$ 210,638.22", promo: "$ 15,381.83", turnover: "$ 1,725,512.40", total1: "$ 65,195.04" },
+                { period: "01/01 - 15/01", arpu: "$ 91.35", spending: "$ 1,051.84", crr: "50.36%", users: "138", cvr: "9.00%", deposit: "$ 158,497.45", promo: "$ 14,362.06", turnover: "$ 1,095,712.31", total1: "$ 36,035.00" }
             ],
             BR: [
-                { period: "01/06 - 15/06", arpu: "$ 280.95", spending: "$ 2,357.80", crr: "40.31%", users: "154", cvr: "11.07%", deposit: "$ 410,298.57", promo: "$ 22,198.93", turnover: "$ 3,034,590.76", total1: "$ 93,169.56" },
-                { period: "01/05 - 15/05", arpu: "$ 440.87", spending: "$ 1,110.02", crr: "44.78%", users: "193", cvr: "14.24%", deposit: "$ 390,619.20", promo: "$ 17,033.48", turnover: "$ 2,327,736.53", total1: "$ 106,300.04" },
-                { period: "01/04 - 15/04", arpu: "$ 104.97", spending: "$ 2,341.30", crr: "49.39%", users: "163", cvr: "14.29%", deposit: "$ 446,871.61", promo: "$ 25,208.72", turnover: "$ 2,906,544.56", total1: "$ 54,224.56" },
-                { period: "01/03 - 15/03", arpu: "$ 279.01", spending: "$ 1,866.99", crr: "70.59%", users: "132", cvr: "12.47%", deposit: "$ 284,527.46", promo: "$ 18,249.94", turnover: "$ 1,653,129.69", total1: "$ 64,311.93" },
-                { period: "01/02 - 15/02", arpu: "$ 347.12", spending: "$ 1,674.89", crr: "63.05%", users: "128", cvr: "7.15%", deposit: "$ 222,965.84", promo: "$ 16,647.01", turnover: "$ 1,367,139.15", total1: "$ 59,427.88" },
-                { period: "01/01 - 15/01", arpu: "$ 273.92", spending: "$ 2,093.70", crr: "53.20%", users: "108", cvr: "6.34%", deposit: "$ 266,025.30", promo: "$ 23,537.05", turnover: "$ 1,734,883.34", total1: "$ 48,454.66" }
+                { period: "01/06 - 15/06", arpu: "$ 280.95", spending: "$ 2,357.80", crr: "43.63%", users: "154", cvr: "11.07%", deposit: "$ 410,298.57", promo: "$ 22,198.93", turnover: "$ 3,034,590.76", total1: "$ 93,169.56" },
+                { period: "01/05 - 15/05", arpu: "$ 440.87", spending: "$ 1,910.02", crr: "45.63%", users: "193", cvr: "14.24%", deposit: "$ 390,619.20", promo: "$ 17,033.48", turnover: "$ 2,327,736.53", total1: "$ 106,300.04" },
+                { period: "01/04 - 15/04", arpu: "$ 104.97", spending: "$ 2,341.30", crr: "45.40%", users: "163", cvr: "14.29%", deposit: "$ 446,871.61", promo: "$ 25,208.72", turnover: "$ 2,906,544.56", total1: "$ 54,224.56" },
+                { period: "01/03 - 15/03", arpu: "$ 279.01", spending: "$ 1,866.99", crr: "69.84%", users: "132", cvr: "12.47%", deposit: "$ 284,527.46", promo: "$ 18,249.94", turnover: "$ 1,653,129.69", total1: "$ 64,311.93" },
+                { period: "01/02 - 15/02", arpu: "$ 347.12", spending: "$ 1,674.89", crr: "55.17%", users: "128", cvr: "7.15%", deposit: "$ 222,965.84", promo: "$ 16,647.01", turnover: "$ 1,367,139.15", total1: "$ 59,427.88" },
+                { period: "01/01 - 15/01", arpu: "$ 273.92", spending: "$ 2,093.70", crr: "65.45%", users: "108", cvr: "6.34%", deposit: "$ 266,025.30", promo: "$ 23,537.05", turnover: "$ 1,734,883.34", total1: "$ 48,454.66" }
             ]
         };
 
