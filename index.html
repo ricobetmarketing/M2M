@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Month-to-Month Performance Executive Dashboard</title>
+    <title>Month-to-Month Performance & Quarterly Benchmarks Dashboard</title>
+    <!-- Tailwind CSS (v4) via CDN for professional UI styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js via CDN for responsive, animated presentation graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
 
+    <!-- Sticky Navigation Banner -->
     <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-white tracking-tight">Month-to-Month Performance Report</h1>
-                <p class="text-sm text-slate-400">Comprehensive presentation across 9 primary key performance indicators</p>
+                <h1 class="text-2xl font-bold text-white tracking-tight">Month-to-Month Executive Report</h1>
+                <p class="text-sm text-slate-400">Strategic Performance Analytics Dashboard with Quarterly Baselines</p>
             </div>
             
+            <!-- Context Control Panel -->
             <div class="flex items-center gap-4">
                 <div class="inline-flex rounded-xl bg-slate-800 p-1 border border-slate-700 shadow-inner">
                     <button onclick="changeMarket('MX')" id="tab-MX" class="px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white shadow-xs">
@@ -34,27 +38,43 @@
 
     <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
         
+        <!-- Segment Information Hero Block -->
         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-                <span class="text-pink-500 text-xs font-bold uppercase tracking-widest bg-pink-500/10 px-2.5 py-1 rounded-md border border-pink-500/20">M2M Comparison Frame</span>
+                <span class="text-pink-500 text-xs font-bold uppercase tracking-widest bg-pink-500/10 px-2.5 py-1 rounded-md border border-pink-500/20">Up-To-Date Audit Context</span>
                 <h2 id="market-title" class="text-2xl font-bold mt-2 text-white">Mexico (MX) Performance Matrix</h2>
             </div>
             <div class="text-left md:text-right">
                 <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Active Comparison View</p>
                 <div class="text-sm font-bold text-slate-200 mt-1 flex flex-wrap gap-2 items-center">
-                    <span class="text-pink-400 font-extrabold bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 rounded">This Month: 01/06 - 15/06</span> 
+                    <span class="text-pink-400 font-extrabold bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 rounded">This Month: 01/06 - 21/06</span> 
                     <span class="text-slate-500">vs</span> 
-                    <span class="text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">Last Month: 01/05 - 15/05</span>
+                    <span class="text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">Last Month: 01/05 - 21/05</span>
                 </div>
             </div>
         </div>
 
+        <!-- 1. Key Metrics Scorecard Grid (This Month vs Last Month Summary Section) -->
         <section>
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Latest Period Snapshot (vs Last Month)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="kpi-grid">
-                </div>
+                <!-- Data cards injected via script -->
+            </div>
         </section>
 
+        <!-- NEW PRESENTATION SECTION: Q1 Average vs Current Quarter Average Benchmark Matrix -->
+        <section class="bg-gradient-to-b from-slate-900 to-indigo-950/40 rounded-2xl border border-slate-800 p-6 shadow-xl space-y-4">
+            <div>
+                <span class="text-indigo-400 text-xs font-bold uppercase tracking-wider">Quarterly Strategic Review</span>
+                <h3 class="text-lg font-bold text-white mt-0.5">Macro Benchmarking: Q1 Average vs. Current Quarter Average</h3>
+                <p class="text-xs text-slate-400">Comparing average weights of Q1 (Jan/Feb/Mar) vs. Current Quarter (Apr/May/Jun) to track long-term performance velocity.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="quarterly-benchmarks-grid">
+                <!-- JavaScript automatically evaluates and puts values here -->
+            </div>
+        </section>
+
+        <!-- 2. Data Visualization Charts -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
                 <div class="mb-4">
@@ -77,48 +97,51 @@
             </div>
         </section>
 
+        <!-- 3. Historical Data Ledger Matrix -->
         <section class="bg-slate-900 rounded-2xl border border-slate-800 shadow-md overflow-hidden">
             <div class="px-6 py-4 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
                 <h4 class="text-base font-bold text-white">Complete Historical Performance Log</h4>
-                <span class="text-xs font-semibold bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">All Available Available Windows</span>
+                <span class="text-xs font-semibold bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">All Available Windows</span>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b border-slate-800 bg-slate-950/40 text-xs font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
                             <th class="py-3.5 px-6">Required Presentation Metrics</th>
-                            <th class="py-3.5 px-6 text-pink-400 font-extrabold bg-pink-500/5">01/06 - 15/06</th>
-                            <th class="py-3.5 px-6">01/05 - 15/05</th>
-                            <th class="py-3.5 px-6">01/04 - 15/04</th>
-                            <th class="py-3.5 px-6">01/03 - 15/03</th>
-                            <th class="py-3.5 px-6">01/02 - 15/02</th>
-                            <th class="py-3.5 px-6">01/01 - 15/01</th>
+                            <th class="py-3.5 px-6 text-pink-400 font-extrabold bg-pink-500/5">01/06 - 21/06</th>
+                            <th class="py-3.5 px-6">01/05 - 21/05</th>
+                            <th class="py-3.5 px-6">01/04 - 21/04</th>
+                            <th class="py-3.5 px-6">01/03 - 21/03</th>
+                            <th class="py-3.5 px-6">01/02 - 21/02</th>
+                            <th class="py-3.5 px-6">01/01 - 21/01</th>
                         </tr>
                     </thead>
                     <tbody id="matrix-table-body" class="divide-y divide-slate-800 text-sm text-slate-300">
-                        </tbody>
+                        <!-- Table content dynamically loaded -->
+                    </tbody>
                 </table>
             </div>
         </section>
     </main>
 
     <script>
+        // Updated mapping based verbatim on values extracted from newly uploaded files
         const regionalStore = {
             MX: [
-                { period: "01/06 - 15/06", arpu: "$ 418.16", spending: "$ 2,198.77", crr: "94.92%", users: "168", cvr: "12.65%", deposit: "$ 380,835.12", promo: "$ 20,406.43", turnover: "$ 3,669,771.12", total1: "$ 92,493.19" },
-                { period: "01/05 - 15/05", arpu: "$ 269.21", spending: "$ 859.64", crr: "66.17%", users: "221", cvr: "9.73%", deposit: "$ 206,635.54", promo: "$ 15,567.30", turnover: "$ 1,743,010.19", total1: "$ 74,369.87" },
-                { period: "01/04 - 15/04", arpu: "$ 239.68", spending: "$ 1,018.78", crr: "69.81%", users: "185", cvr: "17.53%", deposit: "$ 210,072.78", promo: "$ 18,051.41", turnover: "$ 1,744,586.42", total1: "$ 60,640.51" },
-                { period: "01/03 - 15/03", arpu: "$ 377.50", spending: "$ 1,443.76", crr: "58.62%", users: "153", cvr: "17.06%", deposit: "$ 249,135.58", promo: "$ 18,191.93", turnover: "$ 2,053,845.76", total1: "$ 82,523.21" },
-                { period: "01/02 - 15/02", arpu: "$ 334.44", spending: "$ 1,480.43", crr: "29.52%", users: "134", cvr: "7.56%", deposit: "$ 210,638.22", promo: "$ 15,381.83", turnover: "$ 1,725,512.40", total1: "$ 65,195.04" },
-                { period: "01/01 - 15/01", arpu: "$ 91.35", spending: "$ 1,051.84", crr: "50.36%", users: "138", cvr: "9.00%", deposit: "$ 158,497.45", promo: "$ 14,362.06", turnover: "$ 1,095,712.31", total1: "$ 36,035.00" }
+                { period: "01/06 - 21/06", arpu: "$ 846.23", spending: "$ 2,836.10", crr: "40.18%", users: "182", cvr: "12.00%", deposit: "$ 533,072.63", promo: "$ 33,046.28", turnover: "$ 4,632,431.05", total1: "$ 185,281.58" },
+                { period: "01/05 - 21/05", arpu: "$ 342.79", spending: "$ 1,159.60", crr: "61.66%", users: "238", cvr: "8.41%", deposit: "$ 299,781.69", promo: "$ 21,141.15", turnover: "$ 2,516,943.02", total1: "$ 102,307.49" },
+                { period: "01/04 - 21/04", arpu: "$ 141.71", spending: "$ 1,191.17", crr: "56.28%", users: "206", cvr: "17.70%", deposit: "$ 274,860.99", promo: "$ 22,655.41", turnover: "$ 2,425,766.52", total1: "$ 49,135.72" },
+                { period: "01/03 - 21/03", arpu: "$ 350.02", spending: "$ 1,705.44", crr: "76.32%", users: "174", cvr: "14.92%", deposit: "$ 340,136.81", promo: "$ 25,890.74", turnover: "$ 2,777,720.01", total1: "$ 90,300.86" },
+                { period: "01/02 - 21/02", arpu: "$ 402.56", spending: "$ 1,810.91", crr: "47.30%", users: "140", cvr: "19.78%", deposit: "$ 270,774.02", promo: "$ 21,926.26", turnover: "$ 2,253,025.22", total1: "$ 82,521.92" },
+                { period: "01/01 - 21/01", arpu: "$ 159.56", spending: "$ 1,334.34", crr: "46.43%", users: "156", cvr: "21.77%", deposit: "$ 231,305.56", promo: "$ 19,378.41", turnover: "$ 1,531,504.08", total1: "$ 50,366.53" }
             ],
             BR: [
-                { period: "01/06 - 15/06", arpu: "$ 280.95", spending: "$ 2,357.80", crr: "43.63%", users: "154", cvr: "11.07%", deposit: "$ 410,298.57", promo: "$ 22,198.93", turnover: "$ 3,034,590.76", total1: "$ 93,169.56" },
-                { period: "01/05 - 15/05", arpu: "$ 440.87", spending: "$ 1,910.02", crr: "45.63%", users: "193", cvr: "14.24%", deposit: "$ 390,619.20", promo: "$ 17,033.48", turnover: "$ 2,327,736.53", total1: "$ 106,300.04" },
-                { period: "01/04 - 15/04", arpu: "$ 104.97", spending: "$ 2,341.30", crr: "45.40%", users: "163", cvr: "14.29%", deposit: "$ 446,871.61", promo: "$ 25,208.72", turnover: "$ 2,906,544.56", total1: "$ 54,224.56" },
-                { period: "01/03 - 15/03", arpu: "$ 279.01", spending: "$ 1,866.99", crr: "69.84%", users: "132", cvr: "12.47%", deposit: "$ 284,527.46", promo: "$ 18,249.94", turnover: "$ 1,653,129.69", total1: "$ 64,311.93" },
-                { period: "01/02 - 15/02", arpu: "$ 347.12", spending: "$ 1,674.89", crr: "55.17%", users: "128", cvr: "7.15%", deposit: "$ 222,965.84", promo: "$ 16,647.01", turnover: "$ 1,367,139.15", total1: "$ 59,427.88" },
-                { period: "01/01 - 15/01", arpu: "$ 273.92", spending: "$ 2,093.70", crr: "65.45%", users: "108", cvr: "6.34%", deposit: "$ 266,025.30", promo: "$ 23,537.05", turnover: "$ 1,734,883.34", total1: "$ 48,454.66" }
+                { period: "01/06 - 21/06", arpu: "$ 343.71", spending: "$ 2,767.52", crr: "27.10%", users: "168", cvr: "11.87%", deposit: "$ 527,846.61", promo: "$ 27,854.06", turnover: "$ 3,816,581.56", total1: "$ 105,973.87" },
+                { period: "01/05 - 21/05", arpu: "$ 412.49", spending: "$ 2,233.15", crr: "29.93%", users: "208", cvr: "12.32%", deposit: "$ 511,038.94", promo: "$ 30,706.83", turnover: "$ 5,024,254.88", total1: "$ 136,242.04" },
+                { period: "01/04 - 21/04", arpu: "$ 112.37", spending: "$ 2,655.67", crr: "30.56%", users: "180", cvr: "13.10%", deposit: "$ 579,240.43", promo: "$ 33,284.94", turnover: "$ 3,805,243.65", total1: "$ 63,578.57" },
+                { period: "01/03 - 21/03", arpu: "$ 374.50", spending: "$ 2,081.84", crr: "52.31%", users: "147", cvr: "13.44%", deposit: "$ 371,015.39", promo: "$ 26,756.36", turnover: "$ 2,225,539.64", total1: "$ 98,208.79" },
+                { period: "01/02 - 21/02", arpu: "$ 317.46", spending: "$ 2,175.92", crr: "40.57%", users: "142", cvr: "6.91%", deposit: "$ 320,230.53", promo: "$ 24,483.87", turnover: "$ 2,001,260.48", total1: "$ 66,795.48" },
+                { period: "01/01 - 21/01", arpu: "$ 178.95", spending: "$ 2,521.05", crr: "45.65%", users: "126", cvr: "5.44%", deposit: "$ 390,081.74", promo: "$ 34,068.39", turnover: "$ 2,539,821.24", total1: "$ 31,030.45" }
             ]
         };
 
@@ -130,6 +153,7 @@
             return parseFloat(input.replace(/[\$\s,%\(\)]/g, '')) || 0;
         }
 
+        // Helper to compute variance indicators cleanly
         function computeVarianceBadge(currentRaw, pastRaw, isInvertedMetric = false) {
             const cur = cleanNumericValue(currentRaw);
             const prev = cleanNumericValue(pastRaw);
@@ -148,67 +172,114 @@
             return `<span class="px-2 py-0.5 rounded text-[11px] font-bold text-slate-400 bg-slate-800 border border-slate-700">0.0%</span>`;
         }
 
+        // Formats outputs back based on key type constraints
+        function formatByStyle(value, label) {
+            if (label.includes("Rate") || label.includes("CVR")) {
+                return value.toFixed(2) + "%";
+            } else if (label.includes("User") || label.includes("Count")) {
+                return Math.round(value).toLocaleString();
+            } else {
+                return "$ " + Math.round(value).toLocaleString();
+            }
+        }
+
         function renderDashboardView() {
             const currentDataset = regionalStore[currentActiveMarket];
             const thisMonth = currentDataset[0];
             const lastMonth = currentDataset[1];
 
+            // A. Fill Standard Monthly KPIs Scorecard Grid
             const kpiGrid = document.getElementById('kpi-grid');
-            const structuralGridData = [
-                { text: "1. ARPU (Existing)", curVal: thisMonth.arpu, prevVal: lastMonth.arpu },
-                { text: "2. User Spending (Existing)", curVal: thisMonth.spending, prevVal: lastMonth.spending },
-                { text: "3. CRR Rate", curVal: thisMonth.crr, prevVal: lastMonth.crr, highlight: "text-purple-400" },
-                { text: "4. Existing User", curVal: thisMonth.users, prevVal: lastMonth.users },
-                { text: "5. CVR", curVal: thisMonth.cvr, prevVal: lastMonth.cvr, highlight: "text-pink-400" },
-                { text: "6. Total Deposit", curVal: thisMonth.deposit, prevVal: lastMonth.deposit },
-                { text: "7. Total Promotions", curVal: thisMonth.promo, prevVal: lastMonth.promo, inverted: true, highlight: "text-amber-500" },
-                { text: "8. Total Turnover", curVal: thisMonth.turnover, prevVal: lastMonth.turnover },
-                { text: "9. Total (1)", curVal: thisMonth.total1, prevVal: lastMonth.total1, anchorCard: true }
+            const keysDef = [
+                { label: "1. ARPU (Existing)", accessor: 'arpu' },
+                { label: "2. User Spending (Existing)", accessor: 'spending' },
+                { label: "3. CRR Rate", accessor: 'crr', highlight: "text-purple-400" },
+                { label: "4. Existing User", accessor: 'users' },
+                { label: "5. CVR", accessor: 'cvr', highlight: "text-pink-400" },
+                { label: "6. Total Deposit", accessor: 'deposit' },
+                { label: "7. Total Promotions", accessor: 'promo', inverted: true, highlight: "text-amber-500" },
+                { label: "8. Total Turnover", accessor: 'turnover' },
+                { label: "9. Total (1)", accessor: 'total1', anchorCard: true }
             ];
 
-            kpiGrid.innerHTML = structuralGridData.map(item => {
-                const varianceHtml = computeVarianceBadge(item.curVal, item.prevVal, item.inverted);
+            kpiGrid.innerHTML = keysDef.map(item => {
+                const curVal = thisMonth[item.accessor];
+                const prevVal = lastMonth[item.accessor];
+                const varianceHtml = computeVarianceBadge(curVal, prevVal, item.inverted);
+                
                 if (item.anchorCard) {
                     return `
                     <div class="bg-gradient-to-br from-purple-700 via-fuchsia-800 to-pink-600 p-5 rounded-2xl text-white shadow-lg border border-pink-500/30">
                         <div class="flex justify-between items-center">
-                            <p class="text-xs font-bold uppercase tracking-wider text-purple-100">${item.text}</p>
+                            <p class="text-xs font-bold uppercase tracking-wider text-purple-100">${item.label}</p>
                             <span class="px-2 py-0.5 rounded text-[11px] font-bold border border-white/20 bg-white/10 text-white">MoM Focus</span>
                         </div>
-                        <div class="text-3xl font-black mt-2 tracking-tight">${item.curVal}</div>
+                        <div class="text-3xl font-black mt-2 tracking-tight">${curVal}</div>
                         <div class="flex items-center gap-2 mt-2">
                             ${varianceHtml}
-                            <span class="text-[11px] text-purple-200/80">vs ${item.prevVal} last month</span>
+                            <span class="text-[11px] text-purple-200/80">vs ${prevVal} last month</span>
                         </div>
                     </div>`;
                 }
                 return `
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-sm">
                     <div class="flex justify-between items-center">
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-400">${item.text}</p>
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-400">${item.label}</p>
                         ${varianceHtml}
                     </div>
-                    <div class="text-2xl font-bold mt-2 tracking-tight ${item.highlight || 'text-white'}">${item.curVal}</div>
-                    <p class="text-[11px] text-slate-500 mt-1">Last month: <span class="text-slate-400 font-medium">${item.prevVal}</span></p>
+                    <div class="text-2xl font-bold mt-2 tracking-tight ${item.highlight || 'text-white'}">${curVal}</div>
+                    <p class="text-[11px] text-slate-500 mt-1">Last month: <span class="text-slate-400 font-medium">${prevVal}</span></p>
                 </div>`;
             }).join('');
 
-            const matrixTableBody = document.getElementById('matrix-table-body');
-            const keysDef = [
-                { label: "1. ARPU (Existing)", accessor: 'arpu' },
-                { label: "2. User Spending (Existing)", accessor: 'spending' },
-                { label: "3. CRR Rate", accessor: 'crr' },
-                { label: "4. Existing User", accessor: 'users' },
-                { label: "5. CVR", accessor: 'cvr' },
-                { label: "6. Total Deposit", accessor: 'deposit' },
-                { label: "7. Total Promotions", accessor: 'promo' },
-                { label: "8. Total Turnover", accessor: 'turnover' },
-                { label: "9. Total (1)", accessor: 'total1', anchorRow: true }
-            ];
+            // B. EVALUATE & INJECT QUARTERLY BENCHMARKS 
+            // Q1 = indices 3, 4, 5 (Jan, Feb, Mar) | Current Quarter (Q2) = indices 0, 1, 2 (Apr, May, June)
+            const q1Indices = [3, 4, 5];
+            const q2Indices = [0, 1, 2];
+            const benchmarksGrid = document.getElementById('quarterly-benchmarks-grid');
 
+            benchmarksGrid.innerHTML = keysDef.map(item => {
+                let q1Sum = 0, q2Sum = 0;
+                q1Indices.forEach(i => q1Sum += cleanNumericValue(currentDataset[i][item.accessor]));
+                q2Indices.forEach(i => q2Sum += cleanNumericValue(currentDataset[i][item.accessor]));
+                
+                const q1Avg = q1Sum / 3;
+                const q2Avg = q2Sum / 3;
+
+                const changePct = ((q2Avg - q1Avg) / q1Avg) * 100;
+                let changeBadge = '';
+                if (changePct > 0) {
+                    const color = item.inverted ? "text-rose-400 bg-rose-500/10 border-rose-500/20" : "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
+                    changeBadge = `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold border ${color}">+${changePct.toFixed(1)}% Velocity</span>`;
+                } else {
+                    const color = item.inverted ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" : "text-rose-400 bg-rose-500/10 border-rose-500/20";
+                    changeBadge = `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold border ${color}">${changePct.toFixed(1)}% Retraction</span>`;
+                }
+
+                return `
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 space-y-2">
+                    <p class="text-xs font-semibold text-slate-400 border-b border-slate-800/50 pb-1 flex justify-between items-center">
+                        <span>${item.label.split(". ")[1]}</span>
+                        ${changeBadge}
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-center pt-0.5">
+                        <div class="bg-slate-950/40 p-2 rounded border border-slate-800/40">
+                            <p class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Q1 Average</p>
+                            <p class="text-sm font-bold text-slate-300 mt-0.5">${formatByStyle(q1Avg, item.label)}</p>
+                        </div>
+                        <div class="bg-indigo-950/20 p-2 rounded border border-indigo-900/20">
+                            <p class="text-[10px] uppercase font-bold text-indigo-400 tracking-wider">Current Q Avg</p>
+                            <p class="text-sm font-bold text-pink-400 mt-0.5">${formatByStyle(q2Avg, item.label)}</p>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            // C. Build Historical Table Data Grid Log
+            const matrixTableBody = document.getElementById('matrix-table-body');
             matrixTableBody.innerHTML = keysDef.map(def => {
-                const trClass = def.anchorRow ? 'bg-pink-950/20 font-bold text-white border-t-2 border-slate-800' : 'hover:bg-slate-800/40';
-                const labelStyle = def.anchorRow ? 'text-pink-400 font-black' : 'font-semibold text-slate-200';
+                const trClass = def.anchorCard ? 'bg-pink-950/20 font-bold text-white border-t-2 border-slate-800' : 'hover:bg-slate-800/40';
+                const labelStyle = def.anchorCard ? 'text-pink-400 font-black' : 'font-semibold text-slate-200';
                 const premiumCellClass = (idx) => idx === 0 ? 'text-pink-400 font-bold bg-pink-500/5' : '';
                 
                 return `
@@ -223,6 +294,7 @@
                 </tr>`;
             }).join('');
 
+            // D. Chronological Analytics Charts Generation
             const chronologicalSet = [...currentDataset].reverse();
             const timeAxisLabels = chronologicalSet.map(item => item.period);
 
