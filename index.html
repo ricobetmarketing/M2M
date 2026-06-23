@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mexico (MX) Month-to-Month Performance Report</title>
+    <title>Global Month-to-Month Performance Executive Dashboard</title>
     <!-- Tailwind CSS (v4) via CDN for professional UI styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Chart.js via CDN for responsive, animated presentation graphs -->
@@ -15,10 +15,20 @@
     <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-white tracking-tight">Mexico (MX) Performance Report</h1>
+                <h1 class="text-2xl font-bold text-white tracking-tight">Month-to-Month Performance Report</h1>
                 <p class="text-sm text-slate-400">Comprehensive presentation across 9 primary key performance indicators</p>
             </div>
-            <div>
+            
+            <!-- Context Control Panel -->
+            <div class="flex items-center gap-4">
+                <div class="inline-flex rounded-xl bg-slate-800 p-1 border border-slate-700 shadow-inner">
+                    <button onclick="changeMarket('MX')" id="tab-MX" class="px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white shadow-xs">
+                        Mexico (MX)
+                    </button>
+                    <button onclick="changeMarket('BR')" id="tab-BR" class="px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer text-slate-400 hover:text-white">
+                        Brazil (BR)
+                    </button>
+                </div>
                 <button onclick="window.print()" class="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-sm font-medium rounded-xl transition shadow-xs cursor-pointer font-semibold">
                     Print / Export PDF
                 </button>
@@ -32,7 +42,7 @@
         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
                 <span class="text-pink-500 text-xs font-bold uppercase tracking-widest bg-pink-500/10 px-2.5 py-1 rounded-md border border-pink-500/20">Up-To-Date Audit Context</span>
-                <h2 class="text-2xl font-bold mt-2 text-white">Mexico (MX) Performance Matrix</h2>
+                <h2 id="market-title" class="text-2xl font-bold mt-2 text-white">Mexico (MX) Performance Matrix</h2>
             </div>
             <div class="text-left md:text-right">
                 <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Active Comparison View</p>
@@ -115,15 +125,29 @@
     </main>
 
     <script>
-        // Updated mapping based verbatim on values extracted from (RC) MONTHLY REPORT 2026 (NEW) - M2M Compare MX_4.csv
-        const mxDataset = [
-            { period: "01/06 - 21/06", arpu: "$ 846.23", spending: "$ 2,836.10", crr: "30.08%", users: "182", cvr: "12.00%", deposit: "$ 533,072.63", promo: "$ 33,046.28", turnover: "$ 4,632,431.05", total1: "$ 185,281.58" },
-            { period: "01/05 - 21/05", arpu: "$ 342.79", spending: "$ 1,159.60", crr: "46.39%", users: "238", cvr: "8.41%", deposit: "$ 299,781.69", promo: "$ 21,141.15", turnover: "$ 2,516,943.02", total1: "$ 102,307.49" },
-            { period: "01/04 - 21/04", arpu: "$ 141.71", spending: "$ 1,191.17", crr: "34.33%", users: "206", cvr: "17.70%", deposit: "$ 274,860.99", promo: "$ 22,655.41", turnover: "$ 2,425,766.52", total1: "$ 49,135.72" },
-            { period: "01/03 - 21/03", arpu: "$ 350.02", spending: "$ 1,705.44", crr: "63.04%", users: "174", cvr: "14.92%", deposit: "$ 340,136.81", promo: "$ 25,890.74", turnover: "$ 2,777,720.01", total1: "$ 90,300.86" },
-            { period: "01/02 - 21/02", arpu: "$ 402.56", spending: "$ 1,810.91", crr: "37.14%", users: "140", cvr: "19.78%", deposit: "$ 270,774.02", promo: "$ 21,926.26", turnover: "$ 2,253,025.22", total1: "$ 82,521.92" },
-            { period: "01/01 - 21/01", arpu: "$ 159.56", spending: "$ 1,334.34", crr: "35.62%", users: "156", cvr: "21.77%", deposit: "$ 231,305.56", promo: "$ 19,378.41", turnover: "$ 1,531,504.08", total1: "$ 50,366.53" }
-        ];
+        // Synchronized dataset loaded verbatim from your newest audit CSV file metrics
+        const regionalStore = {
+            MX: [
+                { period: "01/06 - 21/06", arpu: "$ 846.23", spending: "$ 2,836.10", crr: "30.08%", users: "182", cvr: "12.00%", deposit: "$ 533,072.63", promo: "$ 33,046.28", turnover: "$ 4,632,431.05", total1: "$ 185,281.58" },
+                { period: "01/05 - 21/05", arpu: "$ 342.79", spending: "$ 1,159.60", crr: "46.39%", users: "238", cvr: "8.41%", deposit: "$ 299,781.69", promo: "$ 21,141.15", turnover: "$ 2,516,943.02", total1: "$ 102,307.49" },
+                { period: "01/04 - 21/04", arpu: "$ 141.71", spending: "$ 1,191.17", crr: "34.33%", users: "206", cvr: "17.70%", deposit: "$ 274,860.99", promo: "$ 22,655.41", turnover: "$ 2,425,766.52", total1: "$ 49,135.72" },
+                { period: "01/03 - 21/03", arpu: "$ 350.02", spending: "$ 1,705.44", crr: "63.04%", users: "174", cvr: "14.92%", deposit: "$ 340,136.81", promo: "$ 25,890.74", turnover: "$ 2,777,720.01", total1: "$ 90,300.86" },
+                { period: "01/02 - 21/02", arpu: "$ 402.56", spending: "$ 1,810.91", crr: "37.14%", users: "140", cvr: "19.78%", deposit: "$ 270,774.02", promo: "$ 21,926.26", turnover: "$ 2,253,025.22", total1: "$ 82,521.92" },
+                { period: "01/01 - 21/01", arpu: "$ 159.56", spending: "$ 1,334.34", crr: "35.62%", users: "156", cvr: "21.77%", deposit: "$ 231,305.56", promo: "$ 19,378.41", turnover: "$ 1,531,504.08", total1: "$ 50,366.53" }
+            ],
+            BR: [
+                { period: "01/06 - 21/06", arpu: "$ 343.71", spending: "$ 2,767.52", crr: "27.10%", users: "168", cvr: "11.87%", deposit: "$ 527,846.61", promo: "$ 27,854.06", turnover: "$ 3,816,581.56", total1: "$ 105,973.87" },
+                { period: "01/05 - 21/05", arpu: "$ 412.49", spending: "$ 2,233.15", crr: "29.93%", users: "208", cvr: "12.32%", deposit: "$ 511,038.94", promo: "$ 30,706.83", turnover: "$ 5,024,254.88", total1: "$ 136,242.04" },
+                { period: "01/04 - 21/04", arpu: "$ 112.37", spending: "$ 2,655.67", crr: "30.56%", users: "180", cvr: "13.10%", deposit: "$ 579,240.43", promo: "$ 33,284.94", turnover: "$ 3,805,243.65", total1: "$ 63,578.57" },
+                { period: "01/03 - 21/03", arpu: "$ 374.50", spending: "$ 2,081.84", crr: "52.31%", users: "147", cvr: "13.44%", deposit: "$ 371,015.39", promo: "$ 26,756.36", turnover: "$ 2,225,539.64", total1: "$ 98,208.79" },
+                { period: "01/02 - 21/02", arpu: "$ 317.46", spending: "$ 2,175.92", crr: "40.57%", users: "142", cvr: "6.91%", deposit: "$ 320,230.53", promo: "$ 24,483.87", turnover: "$ 2,001,260.48", total1: "$ 66,795.48" },
+                { period: "01/01 - 21/01", arpu: "$ 178.95", spending: "$ 2,521.05", crr: "45.65%", users: "126", cvr: "5.44%", deposit: "$ 390,081.74", promo: "$ 34,068.39", turnover: "$ 2,539,821.24", total1: "$ 31,030.45" }
+            ]
+        };
+
+        let currentActiveMarket = 'MX';
+        let chartVolumeInstance = null;
+        let chartRatioInstance = null;
 
         function cleanNumericValue(input) {
             return parseFloat(input.replace(/[\$\s,%\(\)]/g, '')) || 0;
@@ -158,10 +182,11 @@
         }
 
         function renderDashboardView() {
-            const thisMonth = mxDataset[0];
-            const lastMonth = mxDataset[1];
+            const currentDataset = regionalStore[currentActiveMarket];
+            const thisMonth = currentDataset[0];
+            const lastMonth = currentDataset[1];
 
-            // A. Monthly KPIs Snapshot
+            // A. Monthly Performance KPI Snippets
             const kpiGrid = document.getElementById('kpi-grid');
             const keysDef = [
                 { label: "1. ARPU (Existing)", accessor: 'arpu' },
@@ -205,15 +230,15 @@
                 </div>`;
             }).join('');
 
-            // B. Quarterly Benchmarking
-            const q1Indices = [3, 4, 5];
-            const q2Indices = [0, 1, 2];
+            // B. Quarterly Macro Averages Grid Updates
+            const q1Indices = [3, 4, 5]; // Jan, Feb, Mar
+            const q2Indices = [0, 1, 2]; // Apr, May, June
             const benchmarksGrid = document.getElementById('quarterly-benchmarks-grid');
 
             benchmarksGrid.innerHTML = keysDef.map(item => {
                 let q1Sum = 0, q2Sum = 0;
-                q1Indices.forEach(i => q1Sum += cleanNumericValue(mxDataset[i][item.accessor]));
-                q2Indices.forEach(i => q2Sum += cleanNumericValue(mxDataset[i][item.accessor]));
+                q1Indices.forEach(i => q1Sum += cleanNumericValue(currentDataset[i][item.accessor]));
+                q2Indices.forEach(i => q2Sum += cleanNumericValue(currentDataset[i][item.accessor]));
                 
                 const q1Avg = q1Sum / 3;
                 const q2Avg = q2Sum / 3;
@@ -247,7 +272,7 @@
                 </div>`;
             }).join('');
 
-            // C. Table Matrix
+            // C. Historical Data Grid Matrix Update Layer
             const matrixTableBody = document.getElementById('matrix-table-body');
             matrixTableBody.innerHTML = keysDef.map(def => {
                 const trClass = def.anchorCard ? 'bg-pink-950/20 font-bold text-white border-t-2 border-slate-800' : 'hover:bg-slate-800/40';
@@ -257,17 +282,17 @@
                 return `
                 <tr class="${trClass} whitespace-nowrap">
                     <td class="py-3.5 px-6 ${labelStyle}">${def.label}</td>
-                    <td class="py-3.5 px-6 ${premiumCellClass(0)}">${mxDataset[0][def.accessor]}</td>
-                    <td class="py-3.5 px-6 ${premiumCellClass(1)}">${mxDataset[1][def.accessor]}</td>
-                    <td class="py-3.5 px-6 ${premiumCellClass(2)}">${mxDataset[2][def.accessor]}</td>
-                    <td class="py-3.5 px-6 ${premiumCellClass(3)}">${mxDataset[3][def.accessor]}</td>
-                    <td class="py-3.5 px-6 ${premiumCellClass(4)}">${mxDataset[4][def.accessor]}</td>
-                    <td class="py-3.5 px-6 ${premiumCellClass(5)}">${mxDataset[5][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(0)}">${currentDataset[0][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(1)}">${currentDataset[1][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(2)}">${currentDataset[2][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(3)}">${currentDataset[3][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(4)}">${currentDataset[4][def.accessor]}</td>
+                    <td class="py-3.5 px-6 ${premiumCellClass(5)}">${currentDataset[5][def.accessor]}</td>
                 </tr>`;
             }).join('');
 
-            // D. Charts
-            const chronologicalSet = [...mxDataset].reverse();
+            // D. Trend Curves & Visualization Bars Generation
+            const chronologicalSet = [...currentDataset].reverse();
             const timeAxisLabels = chronologicalSet.map(item => item.period);
             const dataVectorTurnover = chronologicalSet.map(item => cleanNumericValue(item.turnover));
             const dataVectorDeposit = chronologicalSet.map(item => cleanNumericValue(item.deposit));
@@ -275,7 +300,10 @@
             const dataVectorCRR = chronologicalSet.map(item => cleanNumericValue(item.crr));
             const dataVectorCVR = chronologicalSet.map(item => cleanNumericValue(item.cvr));
 
-            new Chart(document.getElementById('financialVolumeChart').getContext('2d'), {
+            if (chartVolumeInstance) chartVolumeInstance.destroy();
+            if (chartRatioInstance) chartRatioInstance.destroy();
+
+            chartVolumeInstance = new Chart(document.getElementById('financialVolumeChart').getContext('2d'), {
                 type: 'bar',
                 data: {
                     labels: timeAxisLabels,
@@ -296,7 +324,7 @@
                 }
             });
 
-            new Chart(document.getElementById('ratioMetricsChart').getContext('2d'), {
+            chartRatioInstance = new Chart(document.getElementById('ratioMetricsChart').getContext('2d'), {
                 type: 'line',
                 data: {
                     labels: timeAxisLabels,
@@ -316,6 +344,24 @@
                     }
                 }
             });
+        }
+
+        function changeMarket(marketCode) {
+            currentActiveMarket = marketCode;
+            document.getElementById('market-title').innerText = marketCode === 'MX' ? 'Mexico (MX) Performance Matrix' : 'Brazil (BR) Performance Matrix';
+            
+            const tabMX = document.getElementById('tab-MX');
+            const tabBR = document.getElementById('tab-BR');
+            
+            if (marketCode === 'MX') {
+                tabMX.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white shadow-xs";
+                tabBR.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer text-slate-400 hover:text-white";
+            } else {
+                tabBR.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white shadow-xs";
+                tabMX.className = "px-5 py-1.5 rounded-lg text-sm font-semibold transition cursor-pointer text-slate-400 hover:text-white";
+            }
+            
+            renderDashboardView();
         }
 
         window.onload = renderDashboardView;
