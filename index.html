@@ -47,9 +47,9 @@
             <div class="text-left md:text-right">
                 <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Active Comparison View</p>
                 <div class="text-sm font-bold text-slate-200 mt-1 flex flex-wrap gap-2 items-center">
-                    <span class="text-pink-400 font-extrabold bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 rounded">This Month: 01/06 - 21/06</span> 
+                    <span class="text-pink-400 font-extrabold bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 rounded">This Month: 01/06 - 28/06</span> 
                     <span class="text-slate-500">vs</span> 
-                    <span class="text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">Last Month: 01/05 - 21/05</span>
+                    <span class="text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded">Last Month: 01/05 - 28/05</span>
                 </div>
             </div>
         </div>
@@ -108,12 +108,12 @@
                     <thead>
                         <tr class="border-b border-slate-800 bg-slate-950/40 text-xs font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
                             <th class="py-3.5 px-6">Required Presentation Metrics</th>
-                            <th class="py-3.5 px-6 text-pink-400 font-extrabold bg-pink-500/5">01/06 - 21/06</th>
-                            <th class="py-3.5 px-6">01/05 - 21/05</th>
-                            <th class="py-3.5 px-6">01/04 - 21/04</th>
-                            <th class="py-3.5 px-6">01/03 - 21/03</th>
-                            <th class="py-3.5 px-6">01/02 - 21/02</th>
-                            <th class="py-3.5 px-6">01/01 - 21/01</th>
+                            <th class="py-3.5 px-6 text-pink-400 font-extrabold bg-pink-500/5">01/06 - 28/06</th>
+                            <th class="py-3.5 px-6">01/05 - 28/05</th>
+                            <th class="py-3.5 px-6">01/04 - 28/04</th>
+                            <th class="py-3.5 px-6">01/03 - 28/03</th>
+                            <th class="py-3.5 px-6">01/02 - 28/02</th>
+                            <th class="py-3.5 px-6">01/01 - 28/01</th>
                         </tr>
                     </thead>
                     <tbody id="matrix-table-body" class="divide-y divide-slate-800 text-sm text-slate-300">
@@ -125,23 +125,25 @@
     </main>
 
     <script>
-        // Synchronized dataset loaded verbatim from your newest audit CSV file metrics
+        // Data populated verbatim from:
+        // MX: (RC) MONTHLY REPORT 2026 (NEW) - M2M Compare MX_5.csv
+        // BR: (RC) MONTHLY REPORT 2026 (NEW) - M2M Compare BR_4.csv
         const regionalStore = {
             MX: [
-                { period: "01/06 - 21/06", arpu: "$ 846.23", spending: "$ 2,836.10", crr: "30.08%", users: "182", cvr: "12.00%", deposit: "$ 533,072.63", promo: "$ 33,046.28", turnover: "$ 4,632,431.05", total1: "$ 185,281.58" },
-                { period: "01/05 - 21/05", arpu: "$ 342.79", spending: "$ 1,159.60", crr: "46.39%", users: "238", cvr: "8.41%", deposit: "$ 299,781.69", promo: "$ 21,141.15", turnover: "$ 2,516,943.02", total1: "$ 102,307.49" },
-                { period: "01/04 - 21/04", arpu: "$ 141.71", spending: "$ 1,191.17", crr: "34.33%", users: "206", cvr: "17.70%", deposit: "$ 274,860.99", promo: "$ 22,655.41", turnover: "$ 2,425,766.52", total1: "$ 49,135.72" },
-                { period: "01/03 - 21/03", arpu: "$ 350.02", spending: "$ 1,705.44", crr: "63.04%", users: "174", cvr: "14.92%", deposit: "$ 340,136.81", promo: "$ 25,890.74", turnover: "$ 2,777,720.01", total1: "$ 90,300.86" },
-                { period: "01/02 - 21/02", arpu: "$ 402.56", spending: "$ 1,810.91", crr: "37.14%", users: "140", cvr: "19.78%", deposit: "$ 270,774.02", promo: "$ 21,926.26", turnover: "$ 2,253,025.22", total1: "$ 82,521.92" },
-                { period: "01/01 - 21/01", arpu: "$ 159.56", spending: "$ 1,334.34", crr: "35.62%", users: "156", cvr: "21.77%", deposit: "$ 231,305.56", promo: "$ 19,378.41", turnover: "$ 1,531,504.08", total1: "$ 50,366.53" }
+                { period: "01/06 - 28/06", arpu: "$ 1,216.65", spending: "$ 3,502.20", crr: "34.88%", users: "211", cvr: "11.88%", deposit: "$ 766,296.23", promo: "$ 53,726.22", turnover: "$ 6,539,737.45", total1: "$ 312,347.93" },
+                { period: "01/05 - 28/05", arpu: "$ 278.85", spending: "$ 1,618.90", crr: "51.27%", users: "263", cvr: "8.69%", deposit: "$ 460,858.42", promo: "$ 32,255.98", turnover: "$ 3,858,064.68", total1: "$ 104,902.02" },
+                { period: "01/04 - 28/04", arpu: "$ 188.90", spending: "$ 1,495.02", crr: "36.67%", users: "220", cvr: "16.35%", deposit: "$ 369,777.16", promo: "$ 27,284.08", turnover: "$ 3,091,806.56", total1: "$ 71,218.39" },
+                { period: "01/03 - 28/03", arpu: "$ 443.03", spending: "$ 1,947.06", crr: "72.46%", users: "200", cvr: "15.05%", deposit: "$ 454,435.85", promo: "$ 32,697.03", turnover: "$ 3,461,731.92", total1: "$ 111,786.83" },
+                { period: "01/02 - 28/02", arpu: "$ 422.82", spending: "$ 2,367.89", crr: "39.79%", users: "150", cvr: "19.44%", deposit: "$ 377,673.40", promo: "$ 28,448.53", turnover: "$ 2,910,217.26", total1: "$ 96,984.62" },
+                { period: "01/01 - 28/01", arpu: "$ 217.74", spending: "$ 1,617.67", crr: "38.81%", users: "170", cvr: "19.71%", deposit: "$ 302,973.10", promo: "$ 24,923.86", turnover: "$ 1,934,203.27", total1: "$ 69,724.92" }
             ],
             BR: [
-                { period: "01/06 - 21/06", arpu: "$ 343.71", spending: "$ 2,767.52", crr: "27.10%", users: "168", cvr: "11.87%", deposit: "$ 527,846.61", promo: "$ 27,854.06", turnover: "$ 3,816,581.56", total1: "$ 105,973.87" },
-                { period: "01/05 - 21/05", arpu: "$ 412.49", spending: "$ 2,233.15", crr: "29.93%", users: "208", cvr: "12.32%", deposit: "$ 511,038.94", promo: "$ 30,706.83", turnover: "$ 5,024,254.88", total1: "$ 136,242.04" },
-                { period: "01/04 - 21/04", arpu: "$ 112.37", spending: "$ 2,655.67", crr: "30.56%", users: "180", cvr: "13.10%", deposit: "$ 579,240.43", promo: "$ 33,284.94", turnover: "$ 3,805,243.65", total1: "$ 63,578.57" },
-                { period: "01/03 - 21/03", arpu: "$ 374.50", spending: "$ 2,081.84", crr: "52.31%", users: "147", cvr: "13.44%", deposit: "$ 371,015.39", promo: "$ 26,756.36", turnover: "$ 2,225,539.64", total1: "$ 98,208.79" },
-                { period: "01/02 - 21/02", arpu: "$ 317.46", spending: "$ 2,175.92", crr: "40.57%", users: "142", cvr: "6.91%", deposit: "$ 320,230.53", promo: "$ 24,483.87", turnover: "$ 2,001,260.48", total1: "$ 66,795.48" },
-                { period: "01/01 - 21/01", arpu: "$ 178.95", spending: "$ 2,521.05", crr: "45.65%", users: "126", cvr: "5.44%", deposit: "$ 390,081.74", promo: "$ 34,068.39", turnover: "$ 2,539,821.24", total1: "$ 31,030.45" }
+                { period: "01/06 - 28/06", arpu: "$ 308.03", spending: "$ 3,244.72", crr: "28.87%", users: "179", cvr: "11.63%", deposit: "$ 682,656.51", promo: "$ 37,118.41", turnover: "$ 4,707,541.22", total1: "$ 111,924.02" },
+                { period: "01/05 - 28/05", arpu: "$ 552.90", spending: "$ 2,820.85", crr: "32.66%", users: "227", cvr: "10.88%", deposit: "$ 703,074.08", promo: "$ 39,488.02", turnover: "$ 6,381,721.24", total1: "$ 182,020.89" },
+                { period: "01/04 - 28/04", arpu: "$ 175.31", spending: "$ 2,980.92", crr: "33.11%", users: "195", cvr: "11.13%", deposit: "$ 715,538.73", promo: "$ 39,537.07", turnover: "$ 4,711,492.36", total1: "$ 100,712.67" },
+                { period: "01/03 - 28/03", arpu: "$ 321.40", spending: "$ 2,369.55", crr: "56.94%", users: "160", cvr: "14.31%", deposit: "$ 465,316.55", promo: "$ 31,724.18", turnover: "$ 2,740,909.96", total1: "$ 104,259.19" },
+                { period: "01/02 - 28/02", arpu: "$ 459.13", spending: "$ 2,518.42", crr: "44.00%", users: "154", cvr: "7.93%", deposit: "$ 426,263.45", promo: "$ 32,114.64", turnover: "$ 2,502,181.69", total1: "$ 100,670.14" },
+                { period: "01/01 - 28/01", arpu: "$ 243.74", spending: "$ 2,849.81", crr: "48.91%", users: "135", cvr: "4.81%", deposit: "$ 496,973.31", promo: "$ 41,371.11", turnover: "$ 3,115,624.19", total1: "$ 62,779.11" }
             ]
         };
 
@@ -186,7 +188,7 @@
             const thisMonth = currentDataset[0];
             const lastMonth = currentDataset[1];
 
-            // A. Monthly Performance KPI Snippets
+            // A. Monthly Performance KPIs Snapshot Grid
             const kpiGrid = document.getElementById('kpi-grid');
             const keysDef = [
                 { label: "1. ARPU (Existing)", accessor: 'arpu' },
@@ -230,7 +232,7 @@
                 </div>`;
             }).join('');
 
-            // B. Quarterly Macro Averages Grid Updates
+            // B. Quarterly Benchmarks Layout Matrix
             const q1Indices = [3, 4, 5]; // Jan, Feb, Mar
             const q2Indices = [0, 1, 2]; // Apr, May, June
             const benchmarksGrid = document.getElementById('quarterly-benchmarks-grid');
@@ -272,7 +274,7 @@
                 </div>`;
             }).join('');
 
-            // C. Historical Data Grid Matrix Update Layer
+            // C. Complete Historical Performance Ledger Table
             const matrixTableBody = document.getElementById('matrix-table-body');
             matrixTableBody.innerHTML = keysDef.map(def => {
                 const trClass = def.anchorCard ? 'bg-pink-950/20 font-bold text-white border-t-2 border-slate-800' : 'hover:bg-slate-800/40';
@@ -291,7 +293,7 @@
                 </tr>`;
             }).join('');
 
-            // D. Trend Curves & Visualization Bars Generation
+            // D. Trend Curves & Volume Chart Elements
             const chronologicalSet = [...currentDataset].reverse();
             const timeAxisLabels = chronologicalSet.map(item => item.period);
             const dataVectorTurnover = chronologicalSet.map(item => cleanNumericValue(item.turnover));
